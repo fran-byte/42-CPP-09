@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 19:17:33 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 00:37:49 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 00:41:39 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     try
     {
-        BitcoinExchange exchange("data.csv");
+        BitcoinExchange exchange("data.csv"); /*Load data.csv*/
 
         std::ifstream inputFile(argv[1]);
         if (!inputFile.is_open())
