@@ -6,16 +6,16 @@
 #    By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/27 20:32:43 by frromero          #+#    #+#              #
-#    Updated: 2026/01/02 15:56:37 by frromero         ###   ########.fr        #
+#    Updated: 2026/01/02 16:02:57 by frromero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = bitcoin
+NAME = btc
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 INCLUDES = -I .
 
-SRC =	main.cpp
+SRC =	main.cpp BitcoinExchange.cpp 
 		
 OBJ = $(SRC:.cpp=.o)
 
