@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/02 19:49:17 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:32:15 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@ BitcoinExchange::BitcoinExchange(void)
 
 BitcoinExchange::BitcoinExchange(const std::string &strFile)
 {
+
+    if (parseCsv() == false)
+    {
+        throw std::runtime_error("Error: Invalid CSV file format");
+    }
+
+    if (parseInput() == false)
+    {
+        throw std::runtime_error("Error: Invalid Input file format");
+    }
+
     std::ifstream file(strFile.c_str());
     std::ifstream csvFile(CSV_FILE);
 
