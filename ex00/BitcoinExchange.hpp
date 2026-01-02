@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/02 20:32:10 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:34:18 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ public:
     ~BitcoinExchange();
     BitcoinExchange &operator=(BitcoinExchange const &other);
     void tester();
-    // bool parseCsv();
 };
 
 bool parseCsv();
