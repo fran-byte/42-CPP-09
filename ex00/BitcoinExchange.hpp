@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/02 19:39:48 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/02 19:54:54 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <map>
 #include <string>
 
-const char *CSV_FILE = "data.csv";
+#define CSV_FILE "data.csv"
 
 class BitcoinExchange
 {
