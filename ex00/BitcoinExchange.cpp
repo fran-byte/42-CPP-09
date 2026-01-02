@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/02 22:01:48 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 00:17:07 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,18 @@
 #include <fstream>
 #include <exception>
 #include <sstream>
+#include <cstdlib>
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange(void)
 {
-    // Creates empty BitcoinExchange object
-    // Use BitcoinExchange("data.csv") for proper initialization
 }
 
-BitcoinExchange::BitcoinExchange(const std::string &strFile)
+BitcoinExchange::BitcoinExchange(const std::string &csvFile)
 {
-    if (!parseCsv())
+    if (!parseCsv(csvFile))
     {
-        throw std::runtime_error("Error: Invalid CSV file");
-    }
-
-    if (!parseInput(strFile))
-    {
-        throw std::runtime_error("Error: Invalid Input file");
+        throw std::runtime_error("Error: could not open database.");
     }
 }
 
@@ -49,18 +43,18 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &other)
     return *this;
 }
 
-bool BitcoinExchange::parseCsv()
+bool BitcoinExchange::parseCsv(const std::string &csvFile)
 {
-    std::ifstream csvFile(CSV_FILE);
-    if (!csvFile.is_open())
+    std::ifstream file(csvFile.c_str());
+    if (!file.is_open())
         return false;
 
     std::string line;
 
-    if (!std::getline(csvFile, line) || line != "date,exchange_rate") // Metadata CSV
+    if (!std::getline(file, line) || line != "date,exchange_rate")
         return false;
 
-    while (std::getline(csvFile, line))
+    while (std::getline(file, line))
     {
         if (line.empty())
             continue;
@@ -68,51 +62,37 @@ bool BitcoinExchange::parseCsv()
         size_t firstComma = line.find(',');
         if (firstComma == std::string::npos)
             return false;
-        if (line.find(',', firstComma + 1) != std::string::npos)
-            return false;
 
         std::string date = line.substr(0, firstComma);
         std::string valueStr = line.substr(firstComma + 1);
 
         if (date.length() != 10 || date[4] != '-' || date[7] != '-')
-            return false;
+            continue;
 
-        std::stringstream ss(valueStr);
-        float value;
-        if (!(ss >> value))
-            return false;
+        char *endPtr;
+        float value = std::strtof(valueStr.c_str(), &endPtr);
+        if (*endPtr != '\0' && *endPtr != '\r')
+            continue;
 
-        _bitCoinDatabase[date] = value; // Add DATE & VALUE
+        _bitCoinDatabase[date] = value;
     }
 
-    return !_bitCoinDatabase.empty(); // is empty??
+    return !_bitCoinDatabase.empty();
 }
 
-bool BitcoinExchange::parseInput(const std::string &strFile)
+float BitcoinExchange::getRate(const std::string &date) const
 {
-    std::ifstream inputFile(strFile.c_str());
-    if (!inputFile.is_open())
-        return false;
+    if (_bitCoinDatabase.empty())
+        throw std::runtime_error("Error: Database not loaded");
 
-    std::string line;
+    std::map<std::string, float>::const_iterator it = _bitCoinDatabase.find(date);
+    if (it != _bitCoinDatabase.end())
+        return it->second;
 
-    if (std::getline(inputFile, line))
-    {
-        if (line != "date | value")
+    it = _bitCoinDatabase.lower_bound(date);
+    if (it == _bitCoinDatabase.begin())
+        throw std::runtime_error("Error: No data available for date: " + date);
 
-            return false;
-    }
-    else
-        return false; /*void file*/
-
-    return true; // Input file OK
-}
-
-void BitcoinExchange::tester()
-{
-    std::map<std::string, float>::const_iterator it;
-    for (it = _bitCoinDatabase.begin(); it != _bitCoinDatabase.end(); ++it)
-    {
-        std::cout << it->first << " -> " << it->second << std::endl;
-    }
+    --it;
+    return it->second;
 }

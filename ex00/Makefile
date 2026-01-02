@@ -6,7 +6,7 @@
 #    By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/27 20:32:43 by frromero          #+#    #+#              #
-#    Updated: 2026/01/02 21:28:58 by frromero         ###   ########.fr        #
+#    Updated: 2026/01/03 00:18:46 by frromero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 INCLUDES = -I .
 
-SRC =	main.cpp BitcoinExchange.cpp
+SRC =	main.cpp BitcoinExchange.cpp parsed.cpp
 		
 OBJ = $(SRC:.cpp=.o)
 
