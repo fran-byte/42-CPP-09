@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/02 20:34:18 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:46:39 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ public:
 };
 
 bool parseCsv();
-bool parseInput();
+bool parseInput(std::string file);
 
 #endif

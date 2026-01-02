@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 19:17:33 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/02 20:37:46 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:49:25 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     if (argc != 2)
     {
         std::cerr << std::endl
-                  << "Error: could not open file." << std::endl
+                  << "Error: Could not open file." << std::endl
                   << std::endl;
         return 1;
     }
