@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 15:58:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/02 20:46:39 by frromero         ###   ########.fr       */
+/*   Created: 2026/01/02 21:27:56 by frromero          #+#    #+#             */
+/*   Updated: 2026/01/02 21:54:05 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ class BitcoinExchange
 {
 private:
     std::map<std::string, float> _bitCoinDatabase;
+    bool parseCsv();
+    bool parseInput(const std::string &strFile);
 
 public:
     BitcoinExchange(void);
@@ -31,8 +33,5 @@ public:
     BitcoinExchange &operator=(BitcoinExchange const &other);
     void tester();
 };
-
-bool parseCsv();
-bool parseInput(std::string file);
 
 #endif
