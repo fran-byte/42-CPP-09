@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 19:17:33 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/02 19:35:26 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:37:46 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int main(int argc, char **argv)
 
     try
     {
-        BitcoinExchange a(argv[1]);
-        a.tester();
+        BitcoinExchange data(argv[1]);
+        data.tester();
     }
     catch (const std::exception &e)
     {
