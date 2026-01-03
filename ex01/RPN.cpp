@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:34:42 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 19:34:02 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 20:45:32 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,25 @@ RPN &RPN::operator=(RPN const &other)
 
 float RPN::calculateRPN()
 {
-    //
+    if (_rpnStack.size() != 1)
+        throw std::runtime_error("Error");
+    float result = 0;
+    result = _rpnStack.top();
+    _rpnStack.pop();
+    return result;
 }
 
-e_token validateTokens(char c)
+e_token RPN::validateTokens(char c)
 {
-    //
+    if (isdigit(c))
+        return INT;
+    else if (c == '+')
+        return ADD;
+    else if (c == '-')
+        return SUBT;
+    else if (c == '*')
+        return MULT;
+    else if (c == '/')
+        return DIV;
+    return ERROR;
 }
