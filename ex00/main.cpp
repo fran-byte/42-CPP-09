@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 19:17:33 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 11:00:41 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 11:32:34 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     try
     {
-        BitcoinExchange historicalPrices("data.csv"); /*Load data.csv*/
+        BitcoinExchange historicalPrices("data.csv");
 
         std::ifstream inputFile(argv[1]);
         if (!inputFile.is_open())
@@ -35,9 +35,14 @@ int main(int argc, char *argv[])
 
         std::string line;
 
-        if (!std::getline(inputFile, line) || line != "date | value")
+        while (std::getline(inputFile, line) && line.empty())
         {
-            std::cerr << "Error: invalid file format. Missing header." << std::endl;
+            // Void lines
+        }
+
+        if (line != "date | value")
+        {
+            std::cerr << "Error: invalid file format. Missing or incorrect header." << std::endl;
             return 1;
         }
 
@@ -47,7 +52,7 @@ int main(int argc, char *argv[])
                 continue;
 
             try
-            { /*parsing input.txt*/
+            {
                 std::pair<std::string, float> dateAndValueParsed = parseInputLine(line);
                 float rate = historicalPrices.getRate(dateAndValueParsed.first);
                 float result = dateAndValueParsed.second * rate;
