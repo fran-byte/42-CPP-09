@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 00:17:45 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 10:35:30 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 10:46:20 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ std::pair<std::string, float> parseInputLine(const std::string &line)
     float value = std::strtof(valueStr.c_str(), &endPtr);
     if (*endPtr != '\0')
         throw std::runtime_error("Error: bad input => " + line);
-
     if (value < 0)
         throw std::runtime_error("Error: not a positive number.");
     if (value > 1000)
