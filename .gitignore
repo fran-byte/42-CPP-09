@@ -1,5 +1,5 @@
 .vscode
 *.o
 *.csv
-*.txt
+ex00/*.txt
 btc
