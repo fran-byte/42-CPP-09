@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 19:17:33 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 00:41:39 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 10:49:08 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
                 continue;
 
             try
-            {
+            { /*parsing input.txt*/
                 std::pair<std::string, float> transaction = parseInputLine(line);
                 float rate = exchange.getRate(transaction.first);
                 float result = transaction.second * rate;
