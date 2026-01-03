@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 20:31:54 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 20:57:29 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 21:07:10 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     }
     catch (const std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
     return 0;
 }
