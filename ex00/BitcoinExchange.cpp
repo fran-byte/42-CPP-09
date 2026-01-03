@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 00:17:07 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 10:18:55 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &other)
     return *this;
 }
 
+/*Parsing File referencce CSV*/
 bool BitcoinExchange::parseCsv(const std::string &csvFile)
 {
     std::ifstream file(csvFile.c_str());
@@ -80,6 +81,7 @@ bool BitcoinExchange::parseCsv(const std::string &csvFile)
     return !_bitCoinDatabase.empty();
 }
 
+/*Get Rate from a Date*/
 float BitcoinExchange::getRate(const std::string &date) const
 {
     if (_bitCoinDatabase.empty())

@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 00:17:45 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 00:17:46 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 10:35:30 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <cctype>
 #include <stdexcept>
 
+/* YYYY-MM-DD Valid Format Date (input.txt)*/
 bool isValidDate(const std::string &date)
 {
     if (date.length() != 10 || date[4] != '-' || date[7] != '-')
@@ -24,6 +25,7 @@ bool isValidDate(const std::string &date)
     std::string monthStr = date.substr(5, 2);
     std::string dayStr = date.substr(8, 2);
 
+    /*Verifying only digits*/
     for (size_t i = 0; i < yearStr.length(); ++i)
         if (!std::isdigit(yearStr[i]))
             return false;
@@ -34,6 +36,7 @@ bool isValidDate(const std::string &date)
         if (!std::isdigit(dayStr[i]))
             return false;
 
+    /*to int*/
     int year = std::atoi(yearStr.c_str());
     int month = std::atoi(monthStr.c_str());
     int day = std::atoi(dayStr.c_str());
@@ -54,30 +57,36 @@ bool isValidDate(const std::string &date)
     return true;
 }
 
+/*Parsing input.txt*/
 std::pair<std::string, float> parseInputLine(const std::string &line)
 {
     size_t pipePos = line.find('|');
-    if (pipePos == std::string::npos)
+    if (pipePos == std::string::npos) /*No PIPE*/
         throw std::runtime_error("Error: bad input => " + line);
 
+    /*Split date and value*/
     std::string date = line.substr(0, pipePos);
     std::string valueStr = line.substr(pipePos + 1);
 
+    /*trim spaces (Date)*/
     size_t start = date.find_first_not_of(" \t");
     size_t end = date.find_last_not_of(" \t");
     if (start == std::string::npos)
         throw std::runtime_error("Error: bad input => " + line);
     date = date.substr(start, end - start + 1);
 
+    /*trim spaces (Value)*/
     start = valueStr.find_first_not_of(" \t");
     end = valueStr.find_last_not_of(" \t");
     if (start == std::string::npos)
         throw std::runtime_error("Error: bad input => " + line);
     valueStr = valueStr.substr(start, end - start + 1);
 
+    /*Valid Date (input.txt)*/
     if (!isValidDate(date))
         throw std::runtime_error("Error: bad input => " + line);
 
+    /*stringValue to Float*/
     char *endPtr;
     float value = std::strtof(valueStr.c_str(), &endPtr);
     if (*endPtr != '\0')
@@ -88,5 +97,5 @@ std::pair<std::string, float> parseInputLine(const std::string &line)
     if (value > 1000)
         throw std::runtime_error("Error: too large a number.");
 
-    return std::make_pair(date, value);
+    return std::make_pair(date, value); /*Return both*/
 }
