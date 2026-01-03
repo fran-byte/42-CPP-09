@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 20:31:54 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 21:45:27 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 21:45:48 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ Results:
 15
 16
 21
+Error
 Error
 Error
 Error
