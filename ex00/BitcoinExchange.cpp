@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 11:43:07 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 11:45:04 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ float BitcoinExchange::getRate(const std::string &date) const
     /*No exact match, find closest date*/
     it = _bitCoinDatabase.lower_bound(date);
 
-        if (it == _bitCoinDatabase.begin()) /*No previous date available*/
+    if (it == _bitCoinDatabase.begin()) /*No previous date available*/
         throw std::runtime_error("Error: No data available for date: " + date);
 
     /*Use previous date (lower bound - 1)*/
