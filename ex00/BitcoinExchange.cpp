@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 11:02:44 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 11:34:03 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ bool BitcoinExchange::parseCsv(const std::string &csvFile)
 
     std::string line;
 
+    /*Testing header*/
     if (!std::getline(file, line) || line != "date,exchange_rate")
         return false;
 

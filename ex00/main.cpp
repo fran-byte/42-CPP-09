@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 19:17:33 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 11:32:34 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 11:33:34 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
             // Void lines
         }
 
+        /*Testing header*/
         if (line != "date | value")
         {
             std::cerr << "Error: invalid file format. Missing or incorrect header." << std::endl;
