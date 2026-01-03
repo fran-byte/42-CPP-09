@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 19:17:33 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 10:49:08 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 11:00:41 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     try
     {
-        BitcoinExchange exchange("data.csv"); /*Load data.csv*/
+        BitcoinExchange historicalPrices("data.csv"); /*Load data.csv*/
 
         std::ifstream inputFile(argv[1]);
         if (!inputFile.is_open())
@@ -48,12 +48,12 @@ int main(int argc, char *argv[])
 
             try
             { /*parsing input.txt*/
-                std::pair<std::string, float> transaction = parseInputLine(line);
-                float rate = exchange.getRate(transaction.first);
-                float result = transaction.second * rate;
+                std::pair<std::string, float> dateAndValueParsed = parseInputLine(line);
+                float rate = historicalPrices.getRate(dateAndValueParsed.first);
+                float result = dateAndValueParsed.second * rate;
 
-                std::cout << transaction.first << " => "
-                          << transaction.second << " = "
+                std::cout << dateAndValueParsed.first << " => "
+                          << dateAndValueParsed.second << " = "
                           << result << std::endl;
             }
             catch (const std::exception &e)
