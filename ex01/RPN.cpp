@@ -6,129 +6,88 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:34:42 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 20:45:32 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 21:32:41 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
-#include <exception>
+#include <sstream>
 #include <stdexcept>
 #include <cctype>
+#include <cstdlib>
+#include "RPN.hpp"
 
-RPN::RPN(void) {}
+RPN::RPN() {}
 
-RPN::RPN(const std::string &str)
+RPN::RPN(const std::string &expression)
 {
-    double a = 0;
-    double b = 0;
-    for (size_t i = 0; i < str.length(); i++)
+    std::istringstream iss(expression);
+    std::string token;
+
+    while (iss >> token)
     {
-        char c = str[i];
-
-        if (c == ' ' || c == '\t')
-            continue;
-
-        e_token token = validateTokens(c);
-
-        switch (token)
+        // Si es un número
+        if (token.length() == 1 && std::isdigit(token[0]))
         {
-        case INT:
-            _rpnStack.push(static_cast<float>(c - '0'));
-            break;
+            int num = token[0] - '0';
+            if (num < 0 || num >= 10)
+                throw std::runtime_error("Error");
 
-        case ADD:
-            if (_rpnStack.size() >= 2)
+            _rpnStack.push(static_cast<float>(num));
+        }
+        else if (token.length() == 1 && (token[0] == '+' || token[0] == '-' ||
+                                         token[0] == '*' || token[0] == '/'))
+        {
+            if (_rpnStack.size() < 2)
+                throw std::runtime_error("Error");
+
+            float b = _rpnStack.top();
+            _rpnStack.pop();
+            float a = _rpnStack.top();
+            _rpnStack.pop();
+
+            switch (token[0])
             {
-                b = _rpnStack.top();
-                _rpnStack.pop();
-                a = _rpnStack.top();
-                _rpnStack.pop();
+            case '+':
                 _rpnStack.push(a + b);
-            }
-            else
-                throw std::runtime_error("Error");
-            break;
-
-        case SUBT:
-            if (_rpnStack.size() >= 2)
-            {
-                b = _rpnStack.top();
-                _rpnStack.pop();
-                a = _rpnStack.top();
-                _rpnStack.pop();
+                break;
+            case '-':
                 _rpnStack.push(a - b);
-            }
-            else
-                throw std::runtime_error("Error");
-            break;
-
-        case MULT:
-            if (_rpnStack.size() >= 2)
-            {
-                b = _rpnStack.top();
-                _rpnStack.pop();
-                a = _rpnStack.top();
-                _rpnStack.pop();
+                break;
+            case '*':
                 _rpnStack.push(a * b);
-            }
-            else
-                throw std::runtime_error("Error");
-            break;
-
-        case DIV:
-            if (_rpnStack.size() >= 2)
-            {
-                b = _rpnStack.top();
-                _rpnStack.pop();
+                break;
+            case '/':
                 if (b == 0)
                     throw std::runtime_error("Error");
-                a = _rpnStack.top();
-                _rpnStack.pop();
                 _rpnStack.push(a / b);
+                break;
             }
-            else
-                throw std::runtime_error("Error");
-            break;
-
-        case ERROR:
-        default:
-            throw std::runtime_error("Error");
         }
+        else
+            throw std::runtime_error("Error");
     }
 }
 
-RPN::RPN(RPN const &copy) : _rpnStack(copy._rpnStack) {}
+RPN::RPN(const RPN &other) : _rpnStack(other._rpnStack) {}
 
-RPN::~RPN(void) {}
+RPN::~RPN() {}
 
-RPN &RPN::operator=(RPN const &other)
+RPN &RPN::operator=(const RPN &other)
 {
     if (this != &other)
+    {
         _rpnStack = other._rpnStack;
+    }
     return *this;
 }
 
 float RPN::calculateRPN()
 {
     if (_rpnStack.size() != 1)
+    {
         throw std::runtime_error("Error");
-    float result = 0;
-    result = _rpnStack.top();
+    }
+    float result = _rpnStack.top();
     _rpnStack.pop();
     return result;
-}
-
-e_token RPN::validateTokens(char c)
-{
-    if (isdigit(c))
-        return INT;
-    else if (c == '+')
-        return ADD;
-    else if (c == '-')
-        return SUBT;
-    else if (c == '*')
-        return MULT;
-    else if (c == '/')
-        return DIV;
-    return ERROR;
 }

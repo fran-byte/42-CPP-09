@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:05:42 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 20:38:49 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/03 21:27:39 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,10 @@
 #include <stack>
 #include <string>
 
-enum e_token
-{
-    INT,
-    ADD,
-    SUBT,
-    MULT,
-    DIV,
-    ERROR
-};
-
 class RPN
 {
 private:
     std::stack<float> _rpnStack;
-    e_token validateTokens(char c);
 
 public:
     RPN(void);
