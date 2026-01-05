@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/05 20:41:11 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/05 20:55:04 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define PMERGEME_HPP
 #include <vector>
 #include <deque>
+#include <string>
 
 class PmergeMe
 {
@@ -24,13 +25,13 @@ private:
 
 public:
     PmergeMe(void);
-    PmergeMe(const int numbers);
+    PmergeMe(std::string const &strNumbers);
     PmergeMe(PmergeMe const &copy);
     ~PmergeMe(void);
     PmergeMe &operator=(PmergeMe const &other);
 
-    void fJVector(std::vector<int> &vect); /*ford Johnson Vector*/
-    void fJDeque(std::deque<int> &deq);    /*ford Johnson Deque*/
+    void fJVector(void); /*ford Johnson Vector*/
+    void fJDeque(void);  /*ford Johnson Deque*/
 };
 
 #endif
