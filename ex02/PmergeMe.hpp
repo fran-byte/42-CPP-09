@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/05 20:55:04 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/06 11:54:48 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ private:
     std::vector<int> _vec;
     std::deque<int> _deq;
     /*Añadir metodos privados*/
+    bool isValidInt(const std::vector<std::string> &argvString);
 
 public:
     PmergeMe(void);
-    PmergeMe(std::string const &strNumbers);
+    PmergeMe(std::vector<std::string> const &argvString);
     PmergeMe(PmergeMe const &copy);
     ~PmergeMe(void);
     PmergeMe &operator=(PmergeMe const &other);
