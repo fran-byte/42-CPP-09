@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/06 12:00:03 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:13:03 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,53 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
     }
     return *this;
 }
+/*
+
+3 1   6 5   8 9  4
+0 1   2 3   4 5  6  pos  size= 7
+
+*/
 
 void PmergeMe::fJVector(void)
 {
+    std::vector<int> _cpVect = _vec;
+    bool isOdd = _cpVect.size() % 2;
+
+    /* 1st sorting in pairs*/
+    for (size_t i = 1; i + 1 < _cpVect.size(); i = i + 2)
+    {
+        int b = _cpVect[i - 1];
+        int a = _cpVect[i];
+
+        if (b > a)
+            std::swap(_cpVect[i], _cpVect[i - 1]);
+    }
+
+    /*2nd create Main and Pending Elements*/
+    std::vector<int> mainElem;
+    std::vector<int> pendElem;
+
+    mainElem.push_back(_cpVect[0]); /*b1*/
+    for (size_t i = 1; i < _cpVect.size(); i = i + 2)
+        mainElem.push_back(_cpVect[i]); /*a1,a2,a3...*/
+
+    for (size_t i = 2; i + 1 < _cpVect.size(); i = i + 2)
+        pendElem.push_back(_cpVect[i]); /* b2,b3,b4... */
+
+    if (isOdd)
+        pendElem.push_back(_cpVect.back());
+
+    // DEBUG *************************************
+    std::cout << "DEBUG - MAIN: ";
+    for (size_t i = 0; i < mainElem.size(); i++)
+        std::cout << mainElem[i] << " ";
+    std::cout << "\nDEBUG - PEND: ";
+    for (size_t i = 0; i < pendElem.size(); i++)
+        std::cout << pendElem[i] << " ";
+    std::cout << std::endl;
+    // DEBUG *************************************
 }
 void PmergeMe::fJDeque(void)
 {
+    // size_t containerDeq = _deq.size() + 1;
 }
