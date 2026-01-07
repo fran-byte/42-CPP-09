@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:43:03 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/06 17:02:53 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/07 18:22:06 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int main(int argc, char **argv)
     {
         PmergeMe sortNumber(args);
         sortNumber.fJVector();
+        sortNumber.fJDeque();
     }
     catch (const std::exception &e)
     {
