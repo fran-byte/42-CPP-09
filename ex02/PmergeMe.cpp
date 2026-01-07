@@ -88,10 +88,9 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
     return *this;
 }
 /*
-
-3 1   6 5   8 9  4
-0 1   2 3   4 5  6  pos  size= 7
-
+        a1 b1   a2 b2   a3 b3    c(single)  =>   sorter pairs
+main =  b1 a1   a2  a3
+pend =  b2 c
 */
 
 void PmergeMe::fJVector(void)
