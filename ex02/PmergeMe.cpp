@@ -87,18 +87,13 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
     }
     return *this;
 }
-/*
-        a1 b1   a2 b2   a3 b3    c(single)  =>   sorter pairs
-main =  b1 a1   a2  a3
-pend =  b2 c
-*/
 
 void PmergeMe::fJVector(void)
 {
     std::vector<int> _cpVect = _vec;
     bool isOdd = _cpVect.size() % 2;
 
-    /* 1st sorting in pairs*/
+    /* 1st Pair formation & sorting in pairs*/
     for (size_t i = 1; i + 1 < _cpVect.size(); i = i + 2)
     {
         int b = _cpVect[i - 1];
@@ -108,7 +103,10 @@ void PmergeMe::fJVector(void)
             std::swap(_cpVect[i], _cpVect[i - 1]);
     }
 
-    /*2nd create Main and Pending Elements*/
+    /*2nd create Main and Pending Elements
+    Main = (b1, a1, a1, a3, ... , ak)
+    Pend = (b2, b3, b4 ... , bk)    
+    */
     std::vector<int> mainElem;
     std::vector<int> pendElem;
 
