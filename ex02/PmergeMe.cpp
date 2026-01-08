@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/08 21:33:31 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/08 21:34:36 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,7 +368,7 @@ FORD JOHNSON ALGORITHM:
 
     Recursively sort (largerElements)
 
-    After recursion, Build main chain:
+ 3  After recursion, Build main chain:
      Start with b1 (1st smaller element)
      Append sorted largerElements
 
