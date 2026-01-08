@@ -225,18 +225,25 @@ void PmergeMe::_fordJohnsonRecursiveDeque(std::deque<int> &arr)
 
 void PmergeMe::fJVector(void)
 {
+    std::cout << "Before : ";
+     for (size_t i = 0; i < _vec.size(); i++)
+        std::cout << _vec[i] << " ";
+    std::cout << std::endl;
+
      clock_t start = clock();
     std::vector<int> sorted = _vec;
     _fordJohnsonRecursiveVector(sorted);
     _vec = sorted;
 
-    // // Debug output
-    // std::cout << "Sorted vector: ";
-    // for (size_t i = 0; i < _vec.size(); i++)
-    //     std::cout << _vec[i] << " ";
-    // std::cout << std::endl;
         clock_t end = clock();
     double ms = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
+
+    // Debug output
+     std::cout << "After  : ";
+    for (size_t i = 0; i < _vec.size(); i++)
+        std::cout << _vec[i] << " ";
+    std::cout << std::endl;
+    
 
          std::cout << "Time to process of " << _vec.size() << " elements with std::vector : " << ms << " us" << std::endl;
 }
