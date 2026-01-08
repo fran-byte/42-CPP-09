@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/08 21:45:12 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/08 21:49:46 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static std::vector<size_t> generateAlgorithm(size_t n)
         j_prev = j_curr;
         j_curr = j_next;
     }
-
     return sequence;
 }
 
@@ -352,42 +351,16 @@ void PmergeMe::fJDeque(void)
 
 /*
 
-Ford Johnson (Merge-Insertion Sort):
+Ford Johnson (Merge-Insertion Sort): _vec
 
     Form pairs of elements
 
-    Compare each pair → separate into larger (a) and smaller (b) elements
+    Compare each pair and separate into larger (a) and smaller (b) elements
 
-    Sort only the larger elements (aᵢ) recursively
+    Sort only the larger elements (a) recursively
 
     Build chain: b1 + sorted a
 
     Insert remaining b using special order (Jacobsthal) + binary search
---------------------------------------------------------------------------------
-1 _vec (unsorted integers)
 
-2 _fjRecursVector:  Recursive
-
-    Base case size ≤ 1
-
-    Handle odd element (single) lastelement
-
-    Form pairs:
-     Compare pairs
-     Create two arrays: largerElements (a) and smallerElements (b)
-
-    Recursively sort (largerElements)
-
- 3  After recursion, Build main chain:
-     Start with b1 (1st smaller element)
-     Append sorted largerElements
-
-    Insert remaining smaller elements:
-     Get Jacobsthal insertion order for b2,b3,b4...
-     Binary search position for each b in main chain
-     Insert in optimal order
-
-    Insert single (if exists)
-
-    Update arr= mainChain
 */
