@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/08 21:34:36 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/08 21:37:09 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static std::vector<size_t> getInsertionOrder(size_t pendSize)
     if (pendSize == 0)
         return order;
 
-    // start by inserting the 1st element (index 0)
+    // start by inserting the 1st element
     order.push_back(0);
 
     if (pendSize == 1)
@@ -94,8 +94,7 @@ bool PmergeMe::isValidInt(const std::vector<std::string> &argvString)
         if (str[0] == '0')
             return false;
 
-        // all characters are digits
-        for (size_t j = 0; j < str.size(); j++)
+        for (size_t j = 0; j < str.size(); j++) // all characters are digits
         {
             if (!std::isdigit(static_cast<unsigned char>(str[j])))
                 return false;
@@ -356,11 +355,11 @@ FORD JOHNSON ALGORITHM:
 
 1 _vec (unsorted integers)
 
-2 RECURSIVE (_fjRecursVector):
+2 _fjRecursVector:  Recursive
 
     Base case size ≤ 1
 
-    Handle odd element (single)
+    Handle odd element (single) lastelement
 
     Form pairs:
      Compare pairs
