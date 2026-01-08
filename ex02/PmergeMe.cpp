@@ -225,6 +225,7 @@ void PmergeMe::_fordJohnsonRecursiveDeque(std::deque<int> &arr)
 
 void PmergeMe::fJVector(void)
 {
+     clock_t start = clock();
     std::vector<int> sorted = _vec;
     _fordJohnsonRecursiveVector(sorted);
     _vec = sorted;
@@ -234,11 +235,15 @@ void PmergeMe::fJVector(void)
     for (size_t i = 0; i < _vec.size(); i++)
         std::cout << _vec[i] << " ";
     std::cout << std::endl;
+        clock_t end = clock();
+    double ms = (end - start) * 1000.0 / CLOCKS_PER_SEC;
+
+      std::cout << "Tiempo deque: " << ms << " milisegundos" << std::endl;
 }
 
 void PmergeMe::fJDeque(void)
 {
-    std::timne_t timeDeque =
+    clock_t start = clock();
     std::deque<int> sorted = _deq;
     _fordJohnsonRecursiveDeque(sorted);
     _deq = sorted;
@@ -248,10 +253,9 @@ void PmergeMe::fJDeque(void)
     for (size_t i = 0; i < _deq.size(); i++)
         std::cout << _deq[i] << " ";
     std::cout << std::endl;
+    clock_t end = clock();
+    double ms = (end - start) * 1000.0 / CLOCKS_PER_SEC;
+
+      std::cout << "Tiempo deque: " << ms << " milisegundos" << std::endl;
 }
 
-std::time_t PmergeMe::myTime(void)
-{
-    currencyTime = std::
-    return 
-}
