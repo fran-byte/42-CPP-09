@@ -17,6 +17,7 @@
 #include <cctype>
 #include <cerrno>
 #include <iostream>
+#include <ctime>
 
 bool PmergeMe::isValidInt(const std::vector<std::string> &argvString)
 {
@@ -237,6 +238,7 @@ void PmergeMe::fJVector(void)
 
 void PmergeMe::fJDeque(void)
 {
+    std::timne_t timeDeque =
     std::deque<int> sorted = _deq;
     _fordJohnsonRecursiveDeque(sorted);
     _deq = sorted;
@@ -246,4 +248,10 @@ void PmergeMe::fJDeque(void)
     for (size_t i = 0; i < _deq.size(); i++)
         std::cout << _deq[i] << " ";
     std::cout << std::endl;
+}
+
+std::time_t PmergeMe::myTime(void)
+{
+    currencyTime = std::
+    return 
 }
