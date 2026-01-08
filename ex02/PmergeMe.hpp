@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/07 18:17:42 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/08 21:09:34 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ private:
     bool isValidInt(const std::vector<std::string> &argvString);
     size_t _binarySearchVector(const std::vector<int> &arr, int value);
     size_t _binarySearchDeque(const std::deque<int> &arr, int value);
-    void _fordJohnsonRecursiveVector(std::vector<int> &arr);
-    void _fordJohnsonRecursiveDeque(std::deque<int> &arr);
+    void _fjRecursVector(std::vector<int> &arr);
+    void _fjRecursDeque(std::deque<int> &arr);
 
 public:
     PmergeMe(void);
