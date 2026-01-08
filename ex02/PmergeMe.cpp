@@ -238,7 +238,7 @@ void PmergeMe::fJVector(void)
         clock_t end = clock();
     double ms = (end - start) * 1000.0 / CLOCKS_PER_SEC;
 
-      std::cout << "Tiempo deque: " << ms << " milisegundos" << std::endl;
+      std::cout << "Tiempo vector: " << ms << " milisegundos" << std::endl;
 }
 
 void PmergeMe::fJDeque(void)
