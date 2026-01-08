@@ -230,15 +230,15 @@ void PmergeMe::fJVector(void)
     _fordJohnsonRecursiveVector(sorted);
     _vec = sorted;
 
-    // Debug output
-    std::cout << "Sorted vector: ";
-    for (size_t i = 0; i < _vec.size(); i++)
-        std::cout << _vec[i] << " ";
-    std::cout << std::endl;
+    // // Debug output
+    // std::cout << "Sorted vector: ";
+    // for (size_t i = 0; i < _vec.size(); i++)
+    //     std::cout << _vec[i] << " ";
+    // std::cout << std::endl;
         clock_t end = clock();
-    double ms = (end - start) * 1000.0 / CLOCKS_PER_SEC;
+    double ms = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
 
-      std::cout << "Tiempo vector: " << ms << " milisegundos" << std::endl;
+         std::cout << "Time to process of " << _vec.size() << " elements with std::vector : " << ms << " us" << std::endl;
 }
 
 void PmergeMe::fJDeque(void)
@@ -248,14 +248,15 @@ void PmergeMe::fJDeque(void)
     _fordJohnsonRecursiveDeque(sorted);
     _deq = sorted;
 
-    // Debug output
-    std::cout << "Sorted deque: ";
-    for (size_t i = 0; i < _deq.size(); i++)
-        std::cout << _deq[i] << " ";
-    std::cout << std::endl;
+    // // Debug output
+    // std::cout << "Sorted deque: ";
+    // for (size_t i = 0; i < _deq.size(); i++)
+    //     std::cout << _deq[i] << " ";
+    // std::cout << std::endl;
     clock_t end = clock();
-    double ms = (end - start) * 1000.0 / CLOCKS_PER_SEC;
+    double ms = (end - start) * 1000000.0  / CLOCKS_PER_SEC;
 
-      std::cout << "Tiempo deque: " << ms << " milisegundos" << std::endl;
+  
+         std::cout << "Time to process of " << _deq.size() << " elements with std::deque  : " << ms << " us" << std::endl;
 }
 
