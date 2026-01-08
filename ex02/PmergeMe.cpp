@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/08 21:37:09 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/08 21:44:22 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,8 +351,19 @@ void PmergeMe::fJDeque(void)
 }
 
 /*
-FORD JOHNSON ALGORITHM:
 
+Ford Johnson (Merge-Insertion Sort):
+
+    Form pairs of elements
+
+    Compare each pair → separate into larger (aᵢ) and smaller (bᵢ) elements
+
+    Sort only the larger elements (aᵢ) recursively
+
+    Build chain: b₁ + sorted aᵢ
+
+    Insert remaining bᵢ using special order (Jacobsthal) + binary search
+--------------------------------------------------------------------------------
 1 _vec (unsorted integers)
 
 2 _fjRecursVector:  Recursive
