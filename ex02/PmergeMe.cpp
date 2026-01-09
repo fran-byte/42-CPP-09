@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/09 18:56:06 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:01:49 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 }
 /*  END CONSTRUCTORS ******************************************************* */
 
-/*
+/* [0]
  * @brief Checks that all input strings represent valid positive integers
  * @param argvString Vector containing the program arguments as strings
  * @return true if all arguments are valid, false otherwise
@@ -210,12 +210,12 @@ static std::vector<size_t> getInsertionOrder(size_t pendSize)
  * @brief Sorts a vector using the Ford–Johnson (merge-insertion) algorithm
  *
  * The algorithm works by:
- * 1. Pairing elements and separating them into larger (a) and smaller (b) elements
- * 2. Recursively sorting the larger elements
- * 3. Building the main chain starting with the first smaller element
- * 4. Inserting remaining smaller elements in an order determined by the JACOBSTHAL sequence,
+ * 2.1. Pairing elements and separating them into larger (a) and smaller (b) elements
+ * 2.2. Recursively sorting the larger elements
+ * 2.3. Building the main chain starting with the first smaller element
+ * 2.4. Inserting remaining smaller elements in an order determined by the JACOBSTHAL sequence,
  *    using binary search for efficient placement
- * 5. If the array has an odd number of elements, the last element is inserted at the end
+ * 2.5. If the array has an odd number of elements, the last element is inserted at the end
  *
  * @param arr Vector of integers to sort. The vector is modified in-place
  */
@@ -236,7 +236,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     else
         sizeForPairs = arr.size();
 
-    /* Form PAIRS and STORE them in arrays */
+    /* [2.1]Form PAIRS and STORE them in arrays */
     std::vector<int> largerElements;  /* a elements (larger) */
     std::vector<int> smallerElements; /* b elements (smaller) */
 
@@ -255,9 +255,9 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     }
 
     if (largerElements.size() > 1)              /* BASE CASE*/
-        _fordJohnsonSortVector(largerElements); /* RECURSIVE (sort larger elements)*/
+        _fordJohnsonSortVector(largerElements); /* [2.2]RECURSIVE (sort larger elements)*/
 
-    /* Build MAIN CHAIN starting with b1 (first smaller) */
+    /* [2.3]Build MAIN CHAIN starting with b1 (first smaller) */
     std::vector<int> mainChain;
     if (!smallerElements.empty())
         mainChain.push_back(smallerElements[0]);
@@ -267,7 +267,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 
     if (smallerElements.size() > 1)
     {
-        std::vector<int> remainingSmallers(smallerElements.begin() + 1, smallerElements.end()); /* Insert remaining smaller elements */
+        std::vector<int> remainingSmallers(smallerElements.begin() + 1, smallerElements.end()); /* [2.4]Insert remaining smaller elements */
         std::vector<size_t> insertionOrder = getInsertionOrder(remainingSmallers.size());       /* Get insertion order */
 
         for (size_t i = 0; i < insertionOrder.size(); i++)
@@ -281,7 +281,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
             }
         }
     }
-    if (hasLastElement) /* Insert hasLastElement if exists */
+    if (hasLastElement) /* [2.5]Insert hasLastElement if exists */
     {
         size_t pos = _binarySearchVector(mainChain, lastValue);
         mainChain.insert(mainChain.begin() + pos, lastValue);
@@ -290,9 +290,9 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 }
 
 /* [1]
- * @brief Sorts the stored vector using the Ford–Johnson algorithm.
+ * @brief Sorts the stored vector using the Ford–Johnson algorithm
  *
- * Copies _vec, sorts it, and updates _vec with the result.
+ * Copies _vec, sorts it, and updates _vec with the result
  */
 void PmergeMe::fJVector(void)
 {
