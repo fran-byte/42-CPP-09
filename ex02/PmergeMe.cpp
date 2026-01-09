@@ -66,14 +66,14 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 /*  END CONSTRUCTORS ******************************************************* */
 
 
-// generate algorithm
+/* Generate Jacobs sequence */
 static std::vector<size_t> generateAlgorithm(size_t n)
 {
     std::vector<size_t> insertionSequence;
     if (n == 0)
         return insertionSequence;
 
-    // 1st Jacobsthal numbers
+    /* 1st Jacobs numbers */
     insertionSequence.push_back(1); // J1
 
     size_t j_prev = 0; // J0
@@ -81,7 +81,7 @@ static std::vector<size_t> generateAlgorithm(size_t n)
 
     while (insertionSequence.size() < n)
     {
-        size_t j_next = j_curr + 2 * j_prev;
+        size_t j_next = j_curr + 2 * j_prev; /* Next Jacobs number */
         insertionSequence.push_back(j_next);
         j_prev = j_curr;
         j_curr = j_next;
@@ -89,7 +89,7 @@ static std::vector<size_t> generateAlgorithm(size_t n)
     return insertionSequence;
 }
 
-// get insertion order
+/* build insertion order */
 static std::vector<size_t> getInsertionOrder(size_t pendSize)
 {
     std::vector<size_t> insertionOrder;
@@ -97,14 +97,13 @@ static std::vector<size_t> getInsertionOrder(size_t pendSize)
     if (pendSize == 0)
         return insertionOrder;
 
-    // start by inserting the 1st element
-    insertionOrder.push_back(0);
+    insertionOrder.push_back(0); /* start by inserting the 1st element */
+
 
     if (pendSize == 1)
         return insertionOrder;
 
-    // Generate Algorithm (insertion order)
-    std::vector<size_t> jacobsthal = generateAlgorithm(pendSize);
+      std::vector<size_t> jacobsthal = generateAlgorithm(pendSize); /* Jacobs sequence */
 
     // Use Algorithm sequence to determine insertion order
     size_t lastInserted = 0;
