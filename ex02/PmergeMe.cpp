@@ -254,6 +254,32 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     arr = mainChain; // Update arr
 }
 
+void PmergeMe::fJVector(void)
+{
+    std::cout << "Before : ";
+    for (size_t i = 0; i < _vec.size(); i++)
+        std::cout << _vec[i] << " ";
+    std::cout << std::endl;
+
+    clock_t start = clock();
+    std::vector<int> sorted = _vec;
+    _fordJohnsonSortVector(sorted);
+    _vec = sorted;
+    clock_t end = clock();
+    double microseconds = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
+
+    std::cout << "After  : ";
+    for (size_t i = 0; i < _vec.size(); i++)
+        std::cout << _vec[i] << " ";
+    std::cout << std::endl;
+
+    std::cout << "Time to process a range of " << _vec.size()
+              << " elements with std::vector : " << microseconds << " us" << std::endl;
+}
+
+
+/* SIMILAR CODE FOR "DEQUE" *********************************************************/
+
 // Binary search (deque)
 size_t PmergeMe::_binarySearchDeque(const std::deque<int> &arr, int value)
 {
@@ -330,29 +356,6 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
     arr = mainChain;
 }
 
-void PmergeMe::fJVector(void)
-{
-    std::cout << "Before : ";
-    for (size_t i = 0; i < _vec.size(); i++)
-        std::cout << _vec[i] << " ";
-    std::cout << std::endl;
-
-    clock_t start = clock();
-    std::vector<int> sorted = _vec;
-    _fordJohnsonSortVector(sorted);
-    _vec = sorted;
-    clock_t end = clock();
-    double microseconds = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
-
-    std::cout << "After  : ";
-    for (size_t i = 0; i < _vec.size(); i++)
-        std::cout << _vec[i] << " ";
-    std::cout << std::endl;
-
-    std::cout << "Time to process a range of " << _vec.size()
-              << " elements with std::vector : " << microseconds << " us" << std::endl;
-}
-
 void PmergeMe::fJDeque(void)
 {
     clock_t start = clock();
@@ -361,7 +364,6 @@ void PmergeMe::fJDeque(void)
     _deq = sorted;
     clock_t end = clock();
     double microseconds = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
-
     std::cout << "Time to process a range of " << _deq.size()
               << " elements with std::deque  : " << microseconds << " us" << std::endl;
 }
