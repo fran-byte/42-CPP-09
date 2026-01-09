@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/09 18:43:38 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:46:25 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,11 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     arr = mainChain; /* Update arr */
 }
 
+/*
+ * @brief Sorts the stored vector using the Ford–Johnson algorithm.
+ *
+ * Copies _vec, sorts it, and updates _vec with the result.
+ */
 void PmergeMe::fJVector(void)
 {
     std::cout << "Before : ";
