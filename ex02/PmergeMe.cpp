@@ -167,21 +167,21 @@ void PmergeMe::_fjRecursVector(std::vector<int> &arr)
 
     bool hasLastElement = (arr.size() % 2 == 1); // odd sized array (single)
     int lastValue = -1;
-    size_t effectiveSize = arr.size();
+    size_t sizeForPairs = arr.size();
 
     if (hasLastElement)
     {
         lastValue = arr.back();
-        effectiveSize = arr.size() - 1;
+        sizeForPairs = arr.size() - 1;
     }
     else
-        effectiveSize = arr.size();
+        sizeForPairs = arr.size();
 
     // Form pairs and store them in arrays
     std::vector<int> largerElements;  // a elements (larger)
     std::vector<int> smallerElements; // b elements (smaller)
 
-    for (size_t i = 0; i < effectiveSize; i += 2)
+    for (size_t i = 0; i < sizeForPairs; i += 2)
     {
         if (arr[i] > arr[i + 1])
         {
@@ -259,17 +259,17 @@ void PmergeMe::_fjRecursDeque(std::deque<int> &arr)
         return;
     bool hasLastElement = (arr.size() % 2 == 1);
     int lastValue = -1;
-    size_t effectiveSize = arr.size();
+    size_t sizeForPairs = arr.size();
     if (hasLastElement)
     {
         lastValue = arr.back();
-        effectiveSize = arr.size() - 1;
+        sizeForPairs = arr.size() - 1;
     }
     else
-        effectiveSize = arr.size();
+        sizeForPairs = arr.size();
     std::deque<int> largerElements;
     std::deque<int> smallerElements;
-    for (size_t i = 0; i < effectiveSize; i += 2)
+    for (size_t i = 0; i < sizeForPairs; i += 2)
     {
         if (arr[i] > arr[i + 1])
         {
