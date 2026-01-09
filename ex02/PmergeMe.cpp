@@ -165,13 +165,13 @@ void PmergeMe::_fjRecursVector(std::vector<int> &arr)
     if (arr.size() <= 1)
         return;
 
-    bool lastElement = (arr.size() % 2 == 1); // odd sized array (single)
-    int straggler = -1;
+    bool hasLastElement = (arr.size() % 2 == 1); // odd sized array (single)
+    int lastValue = -1;
     size_t effectiveSize = arr.size();
 
-    if (lastElement)
+    if (hasLastElement)
     {
-        straggler = arr.back();
+        lastValue = arr.back();
         effectiveSize = arr.size() - 1;
     }
     else
@@ -227,11 +227,10 @@ void PmergeMe::_fjRecursVector(std::vector<int> &arr)
             }
         }
     }
-
-    if (lastElement) // Insert lastElement if exists
+    if (hasLastElement) // Insert hasLastElement if exists
     {
-        size_t pos = _binarySearchVector(mainChain, straggler);
-        mainChain.insert(mainChain.begin() + pos, straggler);
+        size_t pos = _binarySearchVector(mainChain, lastValue);
+        mainChain.insert(mainChain.begin() + pos, lastValue);
     }
 
     arr = mainChain; // Update arr
@@ -258,12 +257,12 @@ void PmergeMe::_fjRecursDeque(std::deque<int> &arr)
 {
     if (arr.size() <= 1)
         return;
-    bool lastElement = (arr.size() % 2 == 1);
-    int straggler = -1;
+    bool hasLastElement = (arr.size() % 2 == 1);
+    int lastValue = -1;
     size_t effectiveSize = arr.size();
-    if (lastElement)
+    if (hasLastElement)
     {
-        straggler = arr.back();
+        lastValue = arr.back();
         effectiveSize = arr.size() - 1;
     }
     else
@@ -305,10 +304,10 @@ void PmergeMe::_fjRecursDeque(std::deque<int> &arr)
             }
         }
     }
-    if (lastElement)
+    if (hasLastElement)
     {
-        size_t pos = _binarySearchDeque(mainChain, straggler);
-        mainChain.insert(mainChain.begin() + pos, straggler);
+        size_t pos = _binarySearchDeque(mainChain, lastValue);
+        mainChain.insert(mainChain.begin() + pos, lastValue);
     }
     arr = mainChain;
 }
