@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/09 19:20:52 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:21:56 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ void PmergeMe::fJVector(void)
     clock_t start = clock();
     _fordJohnsonSortVector(sorted);
     clock_t end = clock();
+
     double microseconds = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
     _vec = sorted;
     std::cout << "After  : ";
