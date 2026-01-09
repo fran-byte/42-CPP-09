@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/09 19:01:49 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:18:55 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,10 +304,9 @@ void PmergeMe::fJVector(void)
     clock_t start = clock();
     std::vector<int> sorted = _vec;
     _fordJohnsonSortVector(sorted);
-    _vec = sorted;
     clock_t end = clock();
     double microseconds = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
-
+    _vec = sorted;
     std::cout << "After  : ";
     for (size_t i = 0; i < _vec.size(); i++)
         std::cout << _vec[i] << " ";
@@ -400,9 +399,9 @@ void PmergeMe::fJDeque(void)
     clock_t start = clock();
     std::deque<int> sorted = _deq;
     _fordJohnsonSortDeque(sorted);
-    _deq = sorted;
     clock_t end = clock();
     double microseconds = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
+    _deq = sorted;
     std::cout << "Time to process a range of " << _deq.size()
               << " elements with std::deque  : " << microseconds << " us" << std::endl;
 }
