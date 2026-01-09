@@ -23,41 +23,41 @@
 // generate algorithm
 static std::vector<size_t> generateAlgorithm(size_t n)
 {
-    std::vector<size_t> sequence;
+    std::vector<size_t> insertionSequence;
     if (n == 0)
-        return sequence;
+        return insertionSequence;
 
     // 1st Jacobsthal numbers
-    sequence.push_back(1); // J1
+    insertionSequence.push_back(1); // J1
 
     size_t j_prev = 0; // J0
     size_t j_curr = 1; // J1
 
-    while (sequence.size() < n)
+    while (insertionSequence.size() < n)
     {
         size_t j_next = j_curr + 2 * j_prev;
-        sequence.push_back(j_next);
+        insertionSequence.push_back(j_next);
         j_prev = j_curr;
         j_curr = j_next;
     }
-    return sequence;
+    return insertionSequence;
 }
 
 // get insertion order
 static std::vector<size_t> getInsertionOrder(size_t pendSize)
 {
-    std::vector<size_t> order;
+    std::vector<size_t> insertionOrder;
 
     if (pendSize == 0)
-        return order;
+        return insertionOrder;
 
     // start by inserting the 1st element
-    order.push_back(0);
+    insertionOrder.push_back(0);
 
     if (pendSize == 1)
-        return order;
+        return insertionOrder;
 
-    // Generate Algorithm
+    // Generate Algorithm (insertion order)
     std::vector<size_t> jacobsthal = generateAlgorithm(pendSize);
 
     // Use Algorithm sequence to determine insertion order
@@ -72,12 +72,12 @@ static std::vector<size_t> getInsertionOrder(size_t pendSize)
         for (size_t j = current; j > lastInserted; j--)
         {
             if (j - 1 < pendSize) // Adjust for 0-based indexing
-                order.push_back(j - 1);
+                insertionOrder.push_back(j - 1);
         }
         lastInserted = current;
     }
 
-    return order;
+    return insertionOrder;
 }
 
 // validation
@@ -160,7 +160,7 @@ size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 }
 
 // Ford-Johnson algorithm for vector
-void PmergeMe::_fjRecursVector(std::vector<int> &arr)
+void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 {
     if (arr.size() <= 1)
         return;
@@ -197,7 +197,7 @@ void PmergeMe::_fjRecursVector(std::vector<int> &arr)
 
     // RECURSIVE - sort larger elements
     if (largerElements.size() > 1)
-        _fjRecursVector(largerElements);
+        _fordJohnsonSortVector(largerElements);
 
     // Build main chain starting with b1
     std::vector<int> mainChain;
@@ -253,7 +253,7 @@ size_t PmergeMe::_binarySearchDeque(const std::deque<int> &arr, int value)
     return left;
 }
 
-void PmergeMe::_fjRecursDeque(std::deque<int> &arr)
+void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
 {
     if (arr.size() <= 1)
         return;
@@ -283,7 +283,7 @@ void PmergeMe::_fjRecursDeque(std::deque<int> &arr)
         }
     }
     if (largerElements.size() > 1)
-        _fjRecursDeque(largerElements);
+        _fordJohnsonSortDeque(largerElements);
     std::deque<int> mainChain;
     if (!smallerElements.empty())
         mainChain.push_back(smallerElements[0]); // b₁
@@ -321,7 +321,7 @@ void PmergeMe::fJVector(void)
 
     clock_t start = clock();
     std::vector<int> sorted = _vec;
-    _fjRecursVector(sorted);
+    _fordJohnsonSortVector(sorted);
     _vec = sorted;
     clock_t end = clock();
     double microseconds = (end - start) * 1000000.0 / CLOCKS_PER_SEC;
@@ -339,7 +339,7 @@ void PmergeMe::fJDeque(void)
 {
     clock_t start = clock();
     std::deque<int> sorted = _deq;
-    _fjRecursDeque(sorted);
+    _fordJohnsonSortDeque(sorted);
     _deq = sorted;
     clock_t end = clock();
     double microseconds = (end - start) * 1000000.0 / CLOCKS_PER_SEC;

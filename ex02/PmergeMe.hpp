@@ -24,8 +24,8 @@ private:
     bool isValidInt(const std::vector<std::string> &argvString);
     size_t _binarySearchVector(const std::vector<int> &arr, int value);
     size_t _binarySearchDeque(const std::deque<int> &arr, int value);
-    void _fjRecursVector(std::vector<int> &arr);
-    void _fjRecursDeque(std::deque<int> &arr);
+    void _fordJohnsonSortVector(std::vector<int> &arr);
+    void _fordJohnsonSortDeque(std::deque<int> &arr);
 
 public:
     PmergeMe(void);
