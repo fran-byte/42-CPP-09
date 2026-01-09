@@ -52,7 +52,6 @@ PmergeMe::PmergeMe(std::vector<std::string> const &argvString)
 }
 
 PmergeMe::~PmergeMe(void) {}
-
 PmergeMe::PmergeMe(PmergeMe const &copy) : _vec(copy._vec), _deq(copy._deq) {}
 
 PmergeMe &PmergeMe::operator=(PmergeMe const &other)
@@ -64,7 +63,7 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
     }
     return *this;
 }
-/*  *************************************************************************************** */
+/*  END CONSTRUCTORS ******************************************************* */
 
 
 // generate algorithm
