@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/09 18:27:58 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:43:38 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,13 +222,13 @@ size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 {
     if (arr.size() <= 1)
-        return;
+        return; /*sorted*/
 
     bool hasLastElement = (arr.size() % 2 == 1); /* odd sized array (single) */
     int lastValue = -1;
     size_t sizeForPairs = arr.size();
 
-    if (hasLastElement)
+    if (hasLastElement) /*Check if there is a last unpaired element*/
     {
         lastValue = arr.back();
         sizeForPairs = arr.size() - 1;
@@ -242,25 +242,25 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 
     for (size_t i = 0; i < sizeForPairs; i += 2)
     {
-        if (arr[i] > arr[i + 1])
+        if (arr[i] > arr[i + 1]) /* index 0 > index 1 ....*/
         {
-            largerElements.push_back(arr[i]);      // a
-            smallerElements.push_back(arr[i + 1]); // b
+            largerElements.push_back(arr[i]);      // STORE a
+            smallerElements.push_back(arr[i + 1]); // STORE b
         }
         else
         {
-            largerElements.push_back(arr[i + 1]); // a
-            smallerElements.push_back(arr[i]);    // b
+            largerElements.push_back(arr[i + 1]); // STORE a
+            smallerElements.push_back(arr[i]);    // STORE b
         }
     }
 
     if (largerElements.size() > 1)
         _fordJohnsonSortVector(largerElements); /* RECURSIVE (sort larger elements)*/
 
-    /* Build MAIN CHAIN starting with b1 */
+    /* Build MAIN CHAIN starting with b1 (first smaller) */
     std::vector<int> mainChain;
     if (!smallerElements.empty())
-        mainChain.push_back(smallerElements[0]); /* b1 (1st smaller element) */
+        mainChain.push_back(smallerElements[0]);
 
     for (size_t i = 0; i < largerElements.size(); i++)
         mainChain.push_back(largerElements[i]); /* Insert sorted larger elements */
