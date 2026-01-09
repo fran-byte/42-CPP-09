@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/08 21:49:46 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:50:55 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,9 @@
 Ford Johnson (Merge-Insertion Sort):
 
     Form pairs of elements
-
     Compare each pair and separate into larger (a) and smaller (b) elements
-
     Sort only the larger elements (a) recursively
-
     Build chain: b1 + sorted a
-
     Insert remaining b using special order (Jacobsthal) + binary search
 
 */
@@ -41,12 +37,9 @@ PmergeMe::PmergeMe(void) {}
 PmergeMe::PmergeMe(std::vector<std::string> const &argvString)
 {
     if (!isValidInt(argvString))
-    {
         throw std::runtime_error("Error");
-    }
     for (size_t i = 0; i < argvString.size(); i++)
         _vec.push_back(std::atoi(argvString[i].c_str()));
-
     for (size_t i = 0; i < argvString.size(); i++)
         _deq.push_back(std::atoi(argvString[i].c_str()));
 }
@@ -65,6 +58,38 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 }
 /*  END CONSTRUCTORS ******************************************************* */
 
+/* INPUT VALIDATION */
+bool PmergeMe::isValidInt(const std::vector<std::string> &argvString)
+{
+    for (size_t i = 0; i < argvString.size(); i++)
+    {
+        const std::string &str = argvString[i];
+
+        if (str.empty())
+            return false;
+
+        if (str[0] == '0')
+            return false;
+
+        for (size_t j = 0; j < str.size(); j++) /* all characters are digits */
+        {
+            if (!std::isdigit(static_cast<unsigned char>(str[j])))
+                return false;
+        }
+
+        /* convert and check range */
+        errno = 0;
+        char *endPtr;
+        long num = std::strtol(str.c_str(), &endPtr, 10);
+
+        if (*endPtr != '\0') /* Non digit characters found */
+            return false;
+
+        if (errno == ERANGE || num > INT_MAX || num <= 0)
+            return false;
+    }
+    return true;
+}
 
 /* Generate Jacobs sequence */
 static std::vector<size_t> generateAlgorithm(size_t n)
@@ -99,13 +124,12 @@ static std::vector<size_t> getInsertionOrder(size_t pendSize)
 
     insertionOrder.push_back(0); /* start by inserting the 1st element */
 
-
     if (pendSize == 1)
         return insertionOrder;
 
-      std::vector<size_t> jacobsthal = generateAlgorithm(pendSize); /* Jacobs sequence */
+    std::vector<size_t> jacobsthal = generateAlgorithm(pendSize); /* Jacobs sequence */
 
-    // Use Algorithm sequence to determine insertion order
+    /* Use Algorithm sequence to determine insertion order */
     size_t lastInserted = 0;
     for (size_t i = 1; i < jacobsthal.size(); i++)
     {
@@ -113,52 +137,18 @@ static std::vector<size_t> getInsertionOrder(size_t pendSize)
         if (current > pendSize)
             current = pendSize;
 
-        // Insert in descending order within the group
+        /* Insert in descending order within the group */
         for (size_t j = current; j > lastInserted; j--)
         {
-            if (j - 1 < pendSize) // Adjust for 0-based indexing
+            if (j - 1 < pendSize) /* Adjust for 0-based indexing */
                 insertionOrder.push_back(j - 1);
         }
         lastInserted = current;
     }
-
     return insertionOrder;
 }
 
-// validation
-bool PmergeMe::isValidInt(const std::vector<std::string> &argvString)
-{
-    for (size_t i = 0; i < argvString.size(); i++)
-    {
-        const std::string &str = argvString[i];
-
-        if (str.empty())
-            return false;
-
-        if (str[0] == '0')
-            return false;
-
-        for (size_t j = 0; j < str.size(); j++) // all characters are digits
-        {
-            if (!std::isdigit(static_cast<unsigned char>(str[j])))
-                return false;
-        }
-
-        // Convert and check range
-        errno = 0;
-        char *endPtr;
-        long num = std::strtol(str.c_str(), &endPtr, 10);
-
-        if (*endPtr != '\0') // Non digit characters found
-            return false;
-
-        if (errno == ERANGE || num > INT_MAX || num <= 0)
-            return false;
-    }
-    return true;
-}
-
-// Binary search for vector
+/* Binary search for vector */
 size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 {
     size_t left = 0;
@@ -175,13 +165,13 @@ size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
     return left;
 }
 
-// Ford-Johnson algorithm for vector
+/* Ford-Johnson algorithm for vector */
 void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 {
     if (arr.size() <= 1)
         return;
 
-    bool hasLastElement = (arr.size() % 2 == 1); // odd sized array (single)
+    bool hasLastElement = (arr.size() % 2 == 1); /* odd sized array (single) */
     int lastValue = -1;
     size_t sizeForPairs = arr.size();
 
@@ -193,9 +183,9 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     else
         sizeForPairs = arr.size();
 
-    // Form pairs and store them in arrays
-    std::vector<int> largerElements;  // a elements (larger)
-    std::vector<int> smallerElements; // b elements (smaller)
+    /* Form PAIRS and STORE them in arrays */
+    std::vector<int> largerElements;  /* a elements (larger) */
+    std::vector<int> smallerElements; /* b elements (smaller) */
 
     for (size_t i = 0; i < sizeForPairs; i += 2)
     {
@@ -211,26 +201,21 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         }
     }
 
-    // RECURSIVE - sort larger elements
     if (largerElements.size() > 1)
-        _fordJohnsonSortVector(largerElements);
+        _fordJohnsonSortVector(largerElements); /* RECURSIVE (sort larger elements)*/
 
-    // Build main chain starting with b1
+    /* Build MAIN CHAIN starting with b1 */
     std::vector<int> mainChain;
     if (!smallerElements.empty())
-        mainChain.push_back(smallerElements[0]); // b1 (1st smaller element)
+        mainChain.push_back(smallerElements[0]); /* b1 (1st smaller element) */
 
-    // Insert sorted larger elements
     for (size_t i = 0; i < largerElements.size(); i++)
-        mainChain.push_back(largerElements[i]);
+        mainChain.push_back(largerElements[i]); /* Insert sorted larger elements */
 
-    // Insert remaining smaller elements
     if (smallerElements.size() > 1)
     {
-        std::vector<int> remainingSmallers(smallerElements.begin() + 1, smallerElements.end());
-
-        // Get insertion order
-        std::vector<size_t> insertionOrder = getInsertionOrder(remainingSmallers.size());
+        std::vector<int> remainingSmallers(smallerElements.begin() + 1, smallerElements.end()); /* Insert remaining smaller elements */
+        std::vector<size_t> insertionOrder = getInsertionOrder(remainingSmallers.size());       /* Get insertion order */
 
         for (size_t i = 0; i < insertionOrder.size(); i++)
         {
@@ -243,13 +228,12 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
             }
         }
     }
-    if (hasLastElement) // Insert hasLastElement if exists
+    if (hasLastElement) /* Insert hasLastElement if exists */
     {
         size_t pos = _binarySearchVector(mainChain, lastValue);
         mainChain.insert(mainChain.begin() + pos, lastValue);
     }
-
-    arr = mainChain; // Update arr
+    arr = mainChain; /* Update arr */
 }
 
 void PmergeMe::fJVector(void)
@@ -275,10 +259,9 @@ void PmergeMe::fJVector(void)
               << " elements with std::vector : " << microseconds << " us" << std::endl;
 }
 
+/* **************  SIMILAR CODE FOR "DEQUE" **********************************/
 
-/* SIMILAR CODE FOR "DEQUE" *********************************************************/
-
-// Binary search (deque)
+/* Binary search (deque) */
 size_t PmergeMe::_binarySearchDeque(const std::deque<int> &arr, int value)
 {
     size_t left = 0;
@@ -365,4 +348,3 @@ void PmergeMe::fJDeque(void)
     std::cout << "Time to process a range of " << _deq.size()
               << " elements with std::deque  : " << microseconds << " us" << std::endl;
 }
-
