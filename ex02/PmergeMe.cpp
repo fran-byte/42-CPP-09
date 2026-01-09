@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/09 19:21:56 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:22:47 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,12 +296,12 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
  */
 void PmergeMe::fJVector(void)
 {
+    std::vector<int> sorted = _vec;
     std::cout << "Before : ";
     for (size_t i = 0; i < _vec.size(); i++)
         std::cout << _vec[i] << " ";
     std::cout << std::endl;
 
-    std::vector<int> sorted = _vec;
     clock_t start = clock();
     _fordJohnsonSortVector(sorted);
     clock_t end = clock();
@@ -397,7 +397,6 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
 
 void PmergeMe::fJDeque(void)
 {
-
     std::deque<int> sorted = _deq;
     clock_t start = clock();
     _fordJohnsonSortDeque(sorted);
