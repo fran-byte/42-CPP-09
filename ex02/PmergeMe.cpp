@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/09 18:46:25 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:56:06 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,91 +95,7 @@ bool PmergeMe::isValidInt(const std::vector<std::string> &argvString)
     return true;
 }
 
-/*
- * @brief Generates the JACOBSTHAL SECUENCE used for insertion ordering
- *
- * Jacobsthal sequence:
- *   J(0) = 0, J(1) = 1
- *   J(n) = J(n - 1) + 2 * J(n - 2)
- *
- *  n	    J(n)
- * ---      --------
- *  0	    0  -> omit
- *  1	    1
- *  2	    1  + 2*0  = 1
- *  3	    1  + 2*1  = 3
- *  4	    3  + 2*1  = 5
- *  5	    5  + 2*3  = 11
- *  6	    11 + 2*5  = 21
- *  7	    21 + 2*11 = 43
- * ...      ...
- * @param n Number of elements to generate
- * @return Vector containing the first n Jacobsthal numbers
- */
-static std::vector<size_t> generateAlgorithm(size_t n)
-{
-    std::vector<size_t> insertionSequence;
-    if (n == 0)
-        return insertionSequence;
-
-    insertionSequence.push_back(1); // J(1)
-
-    size_t j_prev = 0; // J(0) aux Variable
-    size_t j_curr = 1; // J(1) aux Variable
-
-    while (insertionSequence.size() < n)
-    {
-        size_t j_next = j_curr + 2 * j_prev; /*  J(n-1) + 2*J(n-2  */
-        insertionSequence.push_back(j_next);
-        j_prev = j_curr;
-        j_curr = j_next;
-    }
-    return insertionSequence;
-}
-
-/*
- * @brief Builds the insertion order for the Ford–Johnson algorithm
- *
- * Uses the JACOBSTHAL sequence to determine the optimal order for
- * inserting pending elements into the main chain
- * Indices beyond the number of pending elements are discarded
- *
- * @param pendSize Number of pending elements to insert
- * @return Vector containing the insertion indices in order
- */
-static std::vector<size_t> getInsertionOrder(size_t pendSize)
-{
-    std::vector<size_t> insertionOrder;
-
-    if (pendSize == 0)
-        return insertionOrder;
-
-    insertionOrder.push_back(0); /* start by inserting the 1st element */
-
-    if (pendSize == 1)
-        return insertionOrder;
-
-    std::vector<size_t> jacobsthal = generateAlgorithm(pendSize); /* Jacobs sequence */
-
-    size_t lastInserted = 0;
-    for (size_t i = 1; i < jacobsthal.size(); i++)
-    {
-        size_t current = jacobsthal[i];
-        if (current > pendSize)
-            current = pendSize; /*discard out-of-range indices*/
-
-        /* Insert in descending order within the group */
-        for (size_t j = current; j > lastInserted; j--)
-        {
-            if (j - 1 < pendSize) /* Adjust for 0-based indexing */
-                insertionOrder.push_back(j - 1);
-        }
-        lastInserted = current;
-    }
-    return insertionOrder;
-}
-
-/*
+/* [5]
  * @brief Performs a binary search to find the insertion position for a value in a sorted vector.
  *
  * The function returns the index at which "value" should be inserted to maintain
@@ -206,7 +122,91 @@ size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
     return left;
 }
 
-/*
+/* [4]
+ * @brief Generates the JACOBSTHAL SECUENCE used for insertion ordering
+ *
+ * Jacobsthal sequence:
+ *   J(0) = 0, J(1) = 1
+ *   J(n) = J(n - 1) + 2 * J(n - 2)
+ *
+ *  n	    J(n)
+ * ---      --------
+ *  0	    0  -> omit
+ *  1	    1
+ *  2	    1  + 2*0  = 1
+ *  3	    1  + 2*1  = 3
+ *  4	    3  + 2*1  = 5
+ *  5	    5  + 2*3  = 11
+ *  6	    11 + 2*5  = 21
+ *  7	    21 + 2*11 = 43
+ * ...      ...
+ * @param n Number of elements to generate
+ * @return Vector containing the first n Jacobsthal numbers
+ */
+static std::vector<size_t> generateJacobSequence(size_t n)
+{
+    std::vector<size_t> insertionSequence;
+    if (n == 0)
+        return insertionSequence;
+
+    insertionSequence.push_back(1); // J(1)
+
+    size_t j_prev = 0; // J(0) aux Variable
+    size_t j_curr = 1; // J(1) aux Variable
+
+    while (insertionSequence.size() < n)
+    {
+        size_t j_next = j_curr + 2 * j_prev; /*  J(n-1) + 2*J(n-2  */
+        insertionSequence.push_back(j_next);
+        j_prev = j_curr;
+        j_curr = j_next;
+    }
+    return insertionSequence;
+}
+
+/* [3]
+ * @brief Builds the insertion order for the Ford–Johnson algorithm
+ *
+ * Uses the JACOBSTHAL sequence to determine the optimal order for
+ * inserting pending elements into the main chain
+ * Indices beyond the number of pending elements are discarded
+ *
+ * @param pendSize Number of pending elements to insert
+ * @return Vector containing the insertion indices in order
+ */
+static std::vector<size_t> getInsertionOrder(size_t pendSize)
+{
+    std::vector<size_t> insertionOrder;
+
+    if (pendSize == 0)
+        return insertionOrder;
+
+    insertionOrder.push_back(0); /* start by inserting the 1st element */
+
+    if (pendSize == 1)
+        return insertionOrder;
+
+    std::vector<size_t> jacobsthal = generateJacobSequence(pendSize); /* Jacobs sequence */
+
+    size_t lastInserted = 0;
+    for (size_t i = 1; i < jacobsthal.size(); i++)
+    {
+        size_t current = jacobsthal[i];
+        if (current > pendSize)
+            current = pendSize; /*discard out-of-range indices*/
+
+        /* Insert in descending order within the group */
+        for (size_t j = current; j > lastInserted; j--)
+        {
+            if (j - 1 < pendSize) /* Adjust for 0-based indexing */
+                insertionOrder.push_back(j - 1);
+        }
+        lastInserted = current;
+    }
+    return insertionOrder;
+}
+
+/* [2]
  * @brief Sorts a vector using the Ford–Johnson (merge-insertion) algorithm
  *
  * The algorithm works by:
@@ -254,7 +254,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         }
     }
 
-    if (largerElements.size() > 1)
+    if (largerElements.size() > 1)              /* BASE CASE*/
         _fordJohnsonSortVector(largerElements); /* RECURSIVE (sort larger elements)*/
 
     /* Build MAIN CHAIN starting with b1 (first smaller) */
@@ -289,7 +289,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     arr = mainChain; /* Update arr */
 }
 
-/*
+/* [1]
  * @brief Sorts the stored vector using the Ford–Johnson algorithm.
  *
  * Copies _vec, sorts it, and updates _vec with the result.
