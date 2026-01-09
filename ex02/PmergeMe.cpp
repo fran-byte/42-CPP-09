@@ -20,11 +20,23 @@
 #include <ctime>
 #include <algorithm>
 
+/*
+
+Ford Johnson (Merge-Insertion Sort):
+
+    Form pairs of elements
+
+    Compare each pair and separate into larger (a) and smaller (b) elements
+
+    Sort only the larger elements (a) recursively
+
+    Build chain: b1 + sorted a
+
+    Insert remaining b using special order (Jacobsthal) + binary search
+
+*/
 
 PmergeMe::PmergeMe(void) {}
-
-
-
 
 PmergeMe::PmergeMe(std::vector<std::string> const &argvString)
 {
@@ -354,18 +366,3 @@ void PmergeMe::fJDeque(void)
               << " elements with std::deque  : " << microseconds << " us" << std::endl;
 }
 
-/*
-
-Ford Johnson (Merge-Insertion Sort): _vec
-
-    Form pairs of elements
-
-    Compare each pair and separate into larger (a) and smaller (b) elements
-
-    Sort only the larger elements (a) recursively
-
-    Build chain: b1 + sorted a
-
-    Insert remaining b using special order (Jacobsthal) + binary search
-
-*/
