@@ -20,6 +20,41 @@
 #include <ctime>
 #include <algorithm>
 
+
+PmergeMe::PmergeMe(void) {}
+
+
+
+
+PmergeMe::PmergeMe(std::vector<std::string> const &argvString)
+{
+    if (!isValidInt(argvString))
+    {
+        throw std::runtime_error("Error");
+    }
+    for (size_t i = 0; i < argvString.size(); i++)
+        _vec.push_back(std::atoi(argvString[i].c_str()));
+
+    for (size_t i = 0; i < argvString.size(); i++)
+        _deq.push_back(std::atoi(argvString[i].c_str()));
+}
+
+PmergeMe::~PmergeMe(void) {}
+
+PmergeMe::PmergeMe(PmergeMe const &copy) : _vec(copy._vec), _deq(copy._deq) {}
+
+PmergeMe &PmergeMe::operator=(PmergeMe const &other)
+{
+    if (this != &other)
+    {
+        _vec = other._vec;
+        _deq = other._deq;
+    }
+    return *this;
+}
+/*  *************************************************************************************** */
+
+
 // generate algorithm
 static std::vector<size_t> generateAlgorithm(size_t n)
 {
@@ -111,35 +146,6 @@ bool PmergeMe::isValidInt(const std::vector<std::string> &argvString)
             return false;
     }
     return true;
-}
-
-PmergeMe::PmergeMe(void) {}
-
-PmergeMe::PmergeMe(std::vector<std::string> const &argvString)
-{
-    if (!isValidInt(argvString))
-    {
-        throw std::runtime_error("Error");
-    }
-    for (size_t i = 0; i < argvString.size(); i++)
-        _vec.push_back(std::atoi(argvString[i].c_str()));
-
-    for (size_t i = 0; i < argvString.size(); i++)
-        _deq.push_back(std::atoi(argvString[i].c_str()));
-}
-
-PmergeMe::~PmergeMe(void) {}
-
-PmergeMe::PmergeMe(PmergeMe const &copy) : _vec(copy._vec), _deq(copy._deq) {}
-
-PmergeMe &PmergeMe::operator=(PmergeMe const &other)
-{
-    if (this != &other)
-    {
-        _vec = other._vec;
-        _deq = other._deq;
-    }
-    return *this;
 }
 
 // Binary search for vector
