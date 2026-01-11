@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 17:34:01 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/11 17:36:53 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void BitcoinExchange::processInputFile(const std::string &inputFileName)
     }
 
     if (!_isValidHeader(line))
-        throw std::runtime_error("Error: invalid file format. Missing or incorrect header.");
+        throw std::runtime_error("Error: invalid file format.");
 
     while (std::getline(inputFile, line))
     {
