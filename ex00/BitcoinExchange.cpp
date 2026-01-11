@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 17:36:53 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/11 17:43:32 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,8 @@ std::pair<std::string, float> BitcoinExchange::_parseInputLine(const std::string
     return std::make_pair(date, value); /*Return both*/
 }
 
-/* ********** PUBLIC Methods ************************************************** */
-
 /* GET RATE */
-float BitcoinExchange::getRate(const std::string &date) const
+float BitcoinExchange::_getRate(const std::string &date) const
 {
     if (_bitCoinDatabase.empty())
         throw std::runtime_error("Error: Database not loaded");
@@ -184,6 +182,8 @@ float BitcoinExchange::getRate(const std::string &date) const
     --it;
     return it->second;
 }
+
+/* ********** PUBLIC Methods ************************************************** */
 
 /* PROCESS INPUT FILE input.txt */
 void BitcoinExchange::processInputFile(const std::string &inputFileName)
@@ -208,7 +208,7 @@ void BitcoinExchange::processInputFile(const std::string &inputFileName)
         try
         {
             std::pair<std::string, float> dateAndValueParsed = _parseInputLine(line);
-            float rate = getRate(dateAndValueParsed.first);
+            float rate = _getRate(dateAndValueParsed.first);
             float result = dateAndValueParsed.second * rate;
 
             std::cout << dateAndValueParsed.first << " => "
