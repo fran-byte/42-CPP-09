@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/08 21:09:34 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/11 19:12:15 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class PmergeMe
 private:
     std::vector<int> _vec;
     std::deque<int> _deq;
-    bool isValidInt(const std::vector<std::string> &argvString);
+    bool _isValidInt(const std::vector<std::string> &argvString);
     size_t _binarySearchVector(const std::vector<int> &arr, int value);
     size_t _binarySearchDeque(const std::deque<int> &arr, int value);
     void _fordJohnsonSortVector(std::vector<int> &arr);

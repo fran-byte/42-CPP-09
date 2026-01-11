@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 19:07:14 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/11 20:04:51 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@
 #include <ctime>
 #include <algorithm>
 
+/* **********************************
+ * Constructors and Destructor
+ * **********************************/
 PmergeMe::PmergeMe(void) {}
-
 PmergeMe::PmergeMe(std::vector<std::string> const &argvString)
 {
-    if (!isValidInt(argvString))
+    if (!_isValidInt(argvString))
         throw std::runtime_error("Error");
     for (size_t i = 0; i < argvString.size(); i++)
         _vec.push_back(std::atoi(argvString[i].c_str()));
     for (size_t i = 0; i < argvString.size(); i++)
         _deq.push_back(std::atoi(argvString[i].c_str()));
 }
-
 PmergeMe::~PmergeMe(void) {}
 PmergeMe::PmergeMe(PmergeMe const &copy) : _vec(copy._vec), _deq(copy._deq) {}
-
 PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 {
     if (this != &other)
@@ -45,7 +45,10 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
     return *this;
 }
 
-bool PmergeMe::isValidInt(const std::vector<std::string> &argvString)
+/* ***********************************************************************
+ * Validate that each string is a valid positive integer
+ * ***********************************************************************/
+bool PmergeMe::_isValidInt(const std::vector<std::string> &argvString)
 {
     for (size_t i = 0; i < argvString.size(); i++)
     {
@@ -76,6 +79,9 @@ bool PmergeMe::isValidInt(const std::vector<std::string> &argvString)
     return true;
 }
 
+/* ***********************************************************************
+ * Binary search helper for vector
+ * ***********************************************************************/
 size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 {
     size_t left = 0;
@@ -92,6 +98,9 @@ size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
     return left;
 }
 
+/* ***********************************************************************
+ * Compute insertion order using Jacobsthal sequence
+ * ***********************************************************************/
 static std::vector<size_t> getInsertionOrder(size_t pendSize)
 {
     std::vector<size_t> insertionOrder;
@@ -145,7 +154,9 @@ static std::vector<size_t> getInsertionOrder(size_t pendSize)
     return insertionOrder;
 }
 
-// Estructura simple para mantener pares sin usar std::pair
+/* ***********************************************************************
+ * SimplePair structure to hold pairs
+ * ***********************************************************************/
 struct SimplePair
 {
     int first;
@@ -155,27 +166,13 @@ struct SimplePair
     SimplePair(int f, int s) : first(f), second(s) {}
 };
 
+/* ***********************************************************************
+ * Ford–Johnson sort for std::vector
+ * ***********************************************************************/
 void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 {
     if (arr.size() <= 1)
         return;
-
-    // Caso base para arrays pequeños
-    if (arr.size() <= 16)
-    {
-        for (size_t i = 1; i < arr.size(); i++)
-        {
-            int key = arr[i];
-            int j = i - 1;
-            while (j >= 0 && arr[j] > key)
-            {
-                arr[j + 1] = arr[j];
-                j--;
-            }
-            arr[j + 1] = key;
-        }
-        return;
-    }
 
     // Manejar elemento impar
     bool hasOdd = (arr.size() % 2 == 1);
@@ -187,7 +184,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         arr.pop_back();
     }
 
-    // Crear pares usando nuestro propio struct
+    // Create pairs
     std::vector<SimplePair> pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
@@ -197,16 +194,16 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
             pairs.push_back(SimplePair(arr[i + 1], arr[i]));
     }
 
-    // Extraer los mayores
+    // Extract larger elements
     std::vector<int> larger;
     for (size_t i = 0; i < pairs.size(); i++)
         larger.push_back(pairs[i].first);
 
-    // Ordenar recursivamente los mayores
+    // Recursively sort larger elements
     if (larger.size() > 1)
         _fordJohnsonSortVector(larger);
 
-    // Reconstruir menores manteniendo correspondencia
+    // Reconstruct smaller elements
     std::vector<int> smaller(pairs.size(), -1);
     std::vector<bool> used(pairs.size(), false);
 
@@ -223,7 +220,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         }
     }
 
-    // Construir la cadena principal
+    // Build main chain
     std::vector<int> mainChain;
     if (!smaller.empty() && smaller[0] != -1)
         mainChain.push_back(smaller[0]);
@@ -231,10 +228,9 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     for (size_t i = 0; i < larger.size(); i++)
         mainChain.push_back(larger[i]);
 
-    // Insertar menores restantes usando orden Jacobsthal
+    // Insert remaining smaller elements using Jacobsthal order
     if (smaller.size() > 1)
     {
-        // Crear vector de menores restantes (sin el primero)
         std::vector<int> remaining;
         for (size_t i = 1; i < smaller.size(); i++)
             if (smaller[i] != -1)
@@ -257,7 +253,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         }
     }
 
-    // Insertar elemento impar si existe
+    // Insert odd element if present
     if (hasOdd)
     {
         size_t pos = _binarySearchVector(mainChain, oddElement);
@@ -267,6 +263,9 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     arr = mainChain;
 }
 
+/* ***********************************************************************
+ * Public method to sort vector
+ * ***********************************************************************/
 void PmergeMe::fJVector(void)
 {
     std::cout << "Before: ";
@@ -290,7 +289,20 @@ void PmergeMe::fJVector(void)
     std::cout << "Time to process a range of " << _vec.size()
               << " elements with std::vector : " << microseconds << " us" << std::endl;
 }
+/* ***********************************************************************
+ * ***********************************************************************
+ * ***********************************************************************
+ * ***********************************************************************
+ * ***********************************************************************
+ *                        Same code but for DEQUE
+ * ***********************************************************************
+ * ***********************************************************************
+ * ***********************************************************************
+ * ***********************************************************************
+ * ***********************************************************************/
 
+/* Binary search helper for deque
+ * ***********************************************************************/
 size_t PmergeMe::_binarySearchDeque(const std::deque<int> &arr, int value)
 {
     size_t left = 0;
@@ -307,7 +319,9 @@ size_t PmergeMe::_binarySearchDeque(const std::deque<int> &arr, int value)
     return left;
 }
 
-// Struct para deque también
+/* ***********************************************************************
+ * SimplePair structure for deque
+ * ***********************************************************************/
 struct SimplePairDeque
 {
     int first;
@@ -317,27 +331,13 @@ struct SimplePairDeque
     SimplePairDeque(int f, int s) : first(f), second(s) {}
 };
 
+/* ***********************************************************************
+ * Ford–Johnson sort for std::deque
+ * ***********************************************************************/
 void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
 {
     if (arr.size() <= 1)
         return;
-
-    // Caso base para arrays pequeños
-    if (arr.size() <= 16)
-    {
-        for (size_t i = 1; i < arr.size(); i++)
-        {
-            int key = arr[i];
-            int j = i - 1;
-            while (j >= 0 && arr[j] > key)
-            {
-                arr[j + 1] = arr[j];
-                j--;
-            }
-            arr[j + 1] = key;
-        }
-        return;
-    }
 
     bool hasOdd = (arr.size() % 2 == 1);
     int oddElement = -1;
@@ -348,7 +348,7 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
         arr.pop_back();
     }
 
-    // Crear pares
+    // Create pairs
     std::vector<SimplePairDeque> pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
@@ -358,16 +358,16 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
             pairs.push_back(SimplePairDeque(arr[i + 1], arr[i]));
     }
 
-    // Extraer mayores
+    // Extract larger elements
     std::deque<int> larger;
     for (size_t i = 0; i < pairs.size(); i++)
         larger.push_back(pairs[i].first);
 
-    // Ordenar recursivamente
+    // Recursively sort larger elements
     if (larger.size() > 1)
         _fordJohnsonSortDeque(larger);
 
-    // Reconstruir menores
+    // Reconstruct smaller elements
     std::deque<int> smaller(larger.size(), -1);
     std::vector<bool> used(pairs.size(), false);
 
@@ -384,7 +384,7 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
         }
     }
 
-    // Construir cadena principal
+    // Build main chain
     std::deque<int> mainChain;
     if (!smaller.empty() && smaller[0] != -1)
         mainChain.push_back(smaller[0]);
@@ -392,7 +392,7 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
     for (size_t i = 0; i < larger.size(); i++)
         mainChain.push_back(larger[i]);
 
-    // Insertar menores restantes
+    // Insert remaining smaller elements using Jacobsthal order
     if (smaller.size() > 1)
     {
         std::vector<int> remaining;
@@ -417,7 +417,7 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
         }
     }
 
-    // Insertar elemento impar
+    // Insert odd element if present
     if (hasOdd)
     {
         size_t pos = _binarySearchDeque(mainChain, oddElement);
@@ -427,6 +427,9 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
     arr = mainChain;
 }
 
+/* ***********************************************************************
+ * Public method to sort deque
+ * ***********************************************************************/
 void PmergeMe::fJDeque(void)
 {
     clock_t start = clock();
