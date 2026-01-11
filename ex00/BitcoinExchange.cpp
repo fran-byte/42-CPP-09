@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 17:51:56 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/11 18:05:07 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,18 +199,24 @@ void BitcoinExchange::processInputFile(const std::string &inputFileName)
         throw std::runtime_error("Error: could not open file.");
 
     std::string line;
+    bool hasValidData = false;
 
     while (std::getline(inputFile, line) && line.empty())
-    { /* Void lines  */
+    {
     }
 
+    if (inputFile.eof())
+        throw std::runtime_error("Error: invalid file format");
+
     if (!_isValidHeader(line))
-        throw std::runtime_error("Error: invalid file format.");
+        throw std::runtime_error("Error: invalid file format");
 
     while (std::getline(inputFile, line))
     {
         if (line.empty())
             continue;
+        hasValidData = true; /* there is data */
+
         try
         {
             std::pair<std::string, float> dateAndValueParsed = _parseInputLine(line);
@@ -226,4 +232,7 @@ void BitcoinExchange::processInputFile(const std::string &inputFileName)
             std::cerr << e.what() << std::endl;
         }
     }
+
+    if (!hasValidData)
+        std::cerr << "Error: invalid file format" << std::endl;
 }
