@@ -6,20 +6,19 @@
 #    By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/27 20:32:43 by frromero          #+#    #+#              #
-#    Updated: 2026/01/03 20:39:40 by frromero         ###   ########.fr        #
+#    Updated: 2026/01/11 16:37:46 by frromero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = RPN
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -g
 INCLUDES = -I .
 
 SRC =	main.cpp RPN.cpp
-		
 OBJ = $(SRC:.cpp=.o)
+DEP = $(OBJ:%.o=%.d)
 
-# Rules
 all: $(NAME)
 
 $(NAME): $(OBJ)
@@ -27,7 +26,7 @@ $(NAME): $(OBJ)
 	@echo "$(NAME) created."
 
 clean:
-	@rm -f $(OBJ)
+	@rm -f $(OBJ) $(DEP)
 	@echo "Object files deleted."
 
 fclean: clean
@@ -37,3 +36,5 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+-include $(DEP)
