@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 17:43:32 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/11 17:51:56 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <cctype>
 #include "BitcoinExchange.hpp"
 
+/* ********** Constructors ************************************************** */
 BitcoinExchange::BitcoinExchange(void) {}
 
 BitcoinExchange::BitcoinExchange(const std::string &csvFile)
@@ -38,7 +39,7 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &other)
     return *this;
 }
 
-/* ********** PRIVATE Methods ************************************************** */
+/* ********** PRIVATE Methods *********************************************** */
 
 /* CSV */
 bool BitcoinExchange::_parseCsv(const std::string &csvFile)
@@ -103,6 +104,11 @@ bool BitcoinExchange::_isValidDate(const std::string &date)
         return false;
 
     if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+        return false;
+
+    if ((month == 1 || month == 3 || month == 5 || month == 7 ||
+         month == 8 || month == 10 || month == 12) &&
+        day > 31)
         return false;
 
     if (month == 2)
@@ -183,7 +189,7 @@ float BitcoinExchange::_getRate(const std::string &date) const
     return it->second;
 }
 
-/* ********** PUBLIC Methods ************************************************** */
+/* ********** PUBLIC Methods ************************************************* */
 
 /* PROCESS INPUT FILE input.txt */
 void BitcoinExchange::processInputFile(const std::string &inputFileName)
