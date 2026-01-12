@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 20:06:22 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/12 20:56:50 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 }
 
 /* ***********************************************************************
- * Compute insertion order using Jacobsthal sequence
+ * Compute insertion order using Jacobsthal sequence for Vector
  * ***********************************************************************/
-static std::vector<size_t> getInsertionOrder(size_t pendSize)
+static std::vector<size_t> getInsertionOrderVector(size_t pendSize)
 {
     std::vector<size_t> insertionOrder;
 
@@ -250,7 +250,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 
         if (!remaining.empty())
         {
-            std::vector<size_t> insertionOrder = getInsertionOrder(remaining.size());
+            std::vector<size_t> insertionOrder = getInsertionOrderVector(remaining.size());
 
             for (size_t i = 0; i < insertionOrder.size(); i++)
             {
@@ -306,7 +306,7 @@ void PmergeMe::fJVector(void)
  * ***********************************************************************
  * ***********************************************************************
  * ***********************************************************************
- *                        Same code but for DEQUE
+ *                    Same code but all with DEQUE
  * ***********************************************************************
  * ***********************************************************************
  * ***********************************************************************
@@ -329,6 +329,62 @@ size_t PmergeMe::_binarySearchDeque(const std::deque<int> &arr, int value)
             right = mid;
     }
     return left;
+}
+
+/* ***********************************************************************
+ * Compute insertion order using Jacobsthal sequence for Deque
+ * ***********************************************************************/
+static std::deque<size_t> getInsertionOrderDeque(size_t pendSize)
+{
+    std::deque<size_t> insertionOrder;
+
+    if (pendSize == 0)
+        return insertionOrder;
+
+    insertionOrder.push_back(0);
+
+    if (pendSize == 1)
+        return insertionOrder;
+
+    std::deque<size_t> jacob;
+    jacob.push_back(0);
+    jacob.push_back(1);
+
+    size_t i = 2;
+    while (true)
+    {
+        size_t next = jacob[i - 1] + 2 * jacob[i - 2];
+        jacob.push_back(next);
+
+        if (jacob.back() >= pendSize)
+            break;
+        i++;
+    }
+
+    size_t lastInserted = 0;
+
+    for (size_t j = 2; j < jacob.size(); j++)
+    {
+        size_t current = jacob[j];
+        if (current > pendSize)
+            current = pendSize;
+
+        for (size_t k = current; k > lastInserted; k--)
+        {
+            size_t idx = k - 1;
+            if (idx < pendSize && idx > 0)
+            {
+                insertionOrder.push_back(idx);
+            }
+        }
+
+        lastInserted = current;
+
+        if (current >= pendSize)
+            break;
+    }
+
+    return insertionOrder;
 }
 
 /* ***********************************************************************
@@ -361,7 +417,7 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
     }
 
     // Create pairs
-    std::vector<SimplePairDeque> pairs;
+    std::deque<SimplePairDeque> pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
         if (arr[i] > arr[i + 1])
@@ -381,7 +437,7 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
 
     // Reconstruct smaller elements
     std::deque<int> smaller(larger.size(), -1);
-    std::vector<bool> used(pairs.size(), false);
+    std::deque<bool> used(pairs.size(), false);
 
     for (size_t i = 0; i < larger.size(); i++)
     {
@@ -407,14 +463,14 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
     // Insert remaining smaller elements using Jacobsthal order
     if (smaller.size() > 1)
     {
-        std::vector<int> remaining;
+        std::deque<int> remaining;
         for (size_t i = 1; i < smaller.size(); i++)
             if (smaller[i] != -1)
                 remaining.push_back(smaller[i]);
 
         if (!remaining.empty())
         {
-            std::vector<size_t> insertionOrder = getInsertionOrder(remaining.size());
+            std::deque<size_t> insertionOrder = getInsertionOrderDeque(remaining.size());
 
             for (size_t i = 0; i < insertionOrder.size(); i++)
             {
