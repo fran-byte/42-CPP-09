@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:34:42 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/12 18:25:20 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/12 20:39:34 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ RPN::RPN(const std::string &expression)
         if (token.length() == 1 && std::isdigit(token[0]))
         {
             int num = token[0] - '0';
-            if (num < 0 || num >= 10)
-                throw std::runtime_error("Error");
-
             _rpnStack.push(static_cast<float>(num));
         }
         else if (token.length() == 1 && (token[0] == '+' || token[0] == '-' ||
