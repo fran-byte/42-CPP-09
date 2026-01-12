@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 20:31:54 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 21:45:48 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:23:12 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int main(int argc, char **argv)
 ./RPN "5 1 2 + *"
 ./RPN "2 2 + 3 * 4 +"
 ./RPN "1 2 + 3 4 + *"
+
 #Error Test
 ./RPN "12"
 ./RPN "+"

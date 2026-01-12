@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:34:42 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 21:32:41 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:24:30 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ RPN::RPN(const std::string &expression)
 
     while (iss >> token)
     {
-        // Si es un número
         if (token.length() == 1 && std::isdigit(token[0]))
         {
             int num = token[0] - '0';
@@ -75,18 +74,15 @@ RPN::~RPN() {}
 RPN &RPN::operator=(const RPN &other)
 {
     if (this != &other)
-    {
         _rpnStack = other._rpnStack;
-    }
     return *this;
 }
 
 float RPN::calculateRPN()
 {
     if (_rpnStack.size() != 1)
-    {
         throw std::runtime_error("Error");
-    }
+
     float result = _rpnStack.top();
     _rpnStack.pop();
     return result;
