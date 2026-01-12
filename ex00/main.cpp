@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 19:17:33 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 17:25:28 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:36:47 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     {
         BitcoinExchange historicalPrices(CSV_FILE);
         historicalPrices.processInputFile(argv[1]);
-        }
+    }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << std::endl;

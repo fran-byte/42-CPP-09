@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 18:05:07 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/12 19:24:51 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ bool BitcoinExchange::_parseCsv(const std::string &csvFile)
             return false;
         char *endPtr;
         float value = std::strtof(valueStr.c_str(), &endPtr);
-        if (*endPtr != '\0') /*conversion failed*/
+        if (*endPtr != '\0') /* Extra characters after the number */
             return false;
 
-        _bitCoinDatabase[date] = value; /*Save date and value*/
+        _bitCoinDatabase[date] = value; /*Save date and value in map< >*/
     }
     return !_bitCoinDatabase.empty();
 }
 
-/* DATE OK ? */
+/* CHECK DATE */
 bool BitcoinExchange::_isValidDate(const std::string &date)
 {
     if (date.length() != 10 || date[4] != '-' || date[7] != '-')
@@ -120,7 +120,7 @@ bool BitcoinExchange::_isValidDate(const std::string &date)
     return true;
 }
 
-/* Header OK ?*/
+/* CHECK HEADER */
 bool BitcoinExchange::_isValidHeader(const std::string &line)
 {
     return line == "date | value";
@@ -138,8 +138,8 @@ std::pair<std::string, float> BitcoinExchange::_parseInputLine(const std::string
     std::string valueStr = line.substr(pipePos + 1);
 
     /*trim spaces (Date)*/
-    size_t start = date.find_first_not_of(" \t");
-    size_t end = date.find_last_not_of(" \t");
+    size_t start = date.find_first_not_of(" \t"); /*1st caracter*/
+    size_t end = date.find_last_not_of(" \t");    /*last caracter*/
     if (start == std::string::npos)
         throw std::runtime_error("Error: bad input => " + line);
     date = date.substr(start, end - start + 1);
@@ -176,6 +176,7 @@ float BitcoinExchange::_getRate(const std::string &date) const
 
     /*Try exact date match first*/
     std::map<std::string, float>::const_iterator it = _bitCoinDatabase.find(date);
+
     if (it != _bitCoinDatabase.end())
         return it->second;
     /*No exact match, find closest date*/
@@ -205,7 +206,7 @@ void BitcoinExchange::processInputFile(const std::string &inputFileName)
     {
     }
 
-    if (inputFile.eof())
+    if (inputFile.eof()) /* void*/
         throw std::runtime_error("Error: invalid file format");
 
     if (!_isValidHeader(line))
@@ -236,3 +237,18 @@ void BitcoinExchange::processInputFile(const std::string &inputFileName)
     if (!hasValidData)
         std::cerr << "Error: invalid file format" << std::endl;
 }
+
+/*
+    1. INITIALIZATION in constructor:
+       BitcoinExchange exchange("data.csv");
+            Loads CSV file & Stores dates and rates in internal map< >
+
+    2. PROCESSING:
+       exchange.processInputFile("input.txt");
+            Reads, parse file & store in a temporal variable:
+                pair<std::string, float> dateAndValueParsed
+                    float rate = _getRate(dateAndValueParsed.first);
+                    float result = dateAndValueParsed.second * rate;
+           and printing result.
+
+*/
