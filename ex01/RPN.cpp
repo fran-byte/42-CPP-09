@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:34:42 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/12 18:24:30 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:25:20 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ RPN::RPN(const std::string &expression)
                 _rpnStack.push(a * b);
                 break;
             case '/':
-                if (b == 0)
+                if (b == 0) /* Division by 0 */
                     throw std::runtime_error("Error");
                 _rpnStack.push(a / b);
                 break;
