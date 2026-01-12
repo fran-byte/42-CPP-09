@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:58:43 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/12 19:24:51 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/12 19:32:53 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,18 +174,18 @@ float BitcoinExchange::_getRate(const std::string &date) const
     if (_bitCoinDatabase.empty())
         throw std::runtime_error("Error: Database not loaded");
 
-    /*Try exact date match first*/
+    /*Try exact date match first  (map iterator )*/
     std::map<std::string, float>::const_iterator it = _bitCoinDatabase.find(date);
 
-    if (it != _bitCoinDatabase.end())
+    if (it != _bitCoinDatabase.end()) /* found */
         return it->second;
-    /*No exact match, find closest date*/
+    /* No exact match, find closest date*/
     it = _bitCoinDatabase.lower_bound(date);
 
     if (it == _bitCoinDatabase.begin()) /*No previous date available*/
         throw std::runtime_error("Error: No data available for date: " + date);
 
-    /*Use previous date (lower bound - 1)*/
+    /*Use previous date (lower bound - 1) */
     --it;
     return it->second;
 }
