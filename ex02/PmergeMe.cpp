@@ -46,7 +46,7 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 }
 
 /* ***********************************************************************
- * Validate that each string is a valid positive integer
+ * Validate positive integer
  * ***********************************************************************/
 bool PmergeMe::_isValidInt(const std::vector<std::string> &argvString)
 {
