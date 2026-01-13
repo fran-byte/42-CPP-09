@@ -51,7 +51,7 @@ larger ORDENADO = [21, 24, 999]                      │
 ┌────────────────────────────────────────────────────┘
 │
 ▽
-[RECONSTRUIR CORRESPONDENCIA]
+[RECONSTRUIR larger ordenado con su smaller correspondiente]
 Buscar para cada larger[i] su par original:
 larger[0]=21 → par(21,5) → smaller[0]=5
 larger[1]=24 → par(24,6) → smaller[1]=6  
