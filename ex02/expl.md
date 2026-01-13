@@ -21,10 +21,10 @@
 [EXTRAER LARGER] → [24, 999, 21]
     │
     ▽
-┌─────────────────────┐
-│  RECURSIÓN en       │ ←────────────────────────────┐
-│  LARGER = [24,999,21]│                             │
-└─────────────────────┘                              │
+┌───────────────────────┐
+│  RECURSIÓN en       ──│ ←──────────────────────────┐
+│  LARGER = [24,999,21] │                            │
+└───────────────────────┘                            │
     │                                                │
     ▽ (Mismo proceso recursivo)                      │
 [24,999,21] → impar=21                               │
@@ -79,9 +79,9 @@ mainChain = [5, 21, 24, 999] ← "Esqueleto ordenado"
 Secuencia: [0, 1] → insertar índice 0, luego 1
     │
     ▽
-┌─────────────────┐
-│ PASO 1: Insertar 6 │
-└─────────────────┘
+┌─────────────────────┐
+│ PASO 1: Insertar 6  │
+└─────────────────────┘
 mainChain actual: [5, 21, 24, 999]
     │
     ▽ (¡BÚSQUEDA BINARIA!)
@@ -95,9 +95,9 @@ Binary Search(6, [5, 21, 24, 999]):
 INSERTAR en posición 1: [5, 6, 21, 24, 999]
     │
     ▽
-┌──────────────────┐
-│ PASO 2: Insertar 78 │
-└──────────────────┘
+┌──────────────────────┐
+│ PASO 2: Insertar 78  │
+└──────────────────────┘
 mainChain actual: [5, 6, 21, 24, 999]
     │
     ▽ (¡OTRA BÚSQUEDA BINARIA!)
@@ -125,7 +125,7 @@ Binary Search(3, [5, 6, 21, 24, 78, 999]):
 INSERTAR en posición 0: [3, 5, 6, 21, 24, 78, 999]
     │
     ▽
-[OUTPUT ORDENADO] ✓
+[OUTPUT ORDENADO]
     │
     └────────────────────────────────────────────┐
                                                  │
