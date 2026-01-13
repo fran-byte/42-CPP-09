@@ -1,6 +1,6 @@
 # \_fordJohsonSortVector()
 
-
+´´´
 [INPUT] e.g., [6, 24, 999, 78, 5, 21, 3]
     │
     ▽
@@ -135,3 +135,5 @@ RESUMEN DE INSERCIONES BINARIAS REALIZADAS:
 2. Inserción de smaller[2]=78 → pos=4  
 3. Inserción de oddElement=3 → pos=0
    TOTAL: 3 búsquedas binarias O(log n)
+
+´´´
