@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/12 20:56:50 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/13 00:59:55 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,26 +167,14 @@ static std::vector<size_t> getInsertionOrderVector(size_t pendSize)
 }
 
 /* ***********************************************************************
- * SimplePair structure to hold pairs
- * ***********************************************************************/
-struct SimplePair
-{
-    int first;
-    int second;
-
-    SimplePair() : first(0), second(0) {}
-    SimplePair(int f, int s) : first(f), second(s) {}
-};
-
-/* ***********************************************************************
- * Ford–Johnson sort for std::vector
+ * Ford–Johnson sort for std::vector (using std::pair as utility)
  * ***********************************************************************/
 void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 {
     if (arr.size() <= 1)
         return;
 
-    // Manejar elemento impar
+    // Handle odd element
     bool hasOdd = (arr.size() % 2 == 1);
     int oddElement = -1;
 
@@ -196,14 +184,14 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         arr.pop_back();
     }
 
-    // Create pairs
-    std::vector<SimplePair> pairs;
+    // Create pairs using std::pair (utility, not container)
+    std::vector<std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
         if (arr[i] > arr[i + 1])
-            pairs.push_back(SimplePair(arr[i], arr[i + 1]));
+            pairs.push_back(std::make_pair(arr[i], arr[i + 1]));
         else
-            pairs.push_back(SimplePair(arr[i + 1], arr[i]));
+            pairs.push_back(std::make_pair(arr[i + 1], arr[i]));
     }
 
     // Extract larger elements
@@ -388,19 +376,7 @@ static std::deque<size_t> getInsertionOrderDeque(size_t pendSize)
 }
 
 /* ***********************************************************************
- * SimplePair structure for deque
- * ***********************************************************************/
-struct SimplePairDeque
-{
-    int first;
-    int second;
-
-    SimplePairDeque() : first(0), second(0) {}
-    SimplePairDeque(int f, int s) : first(f), second(s) {}
-};
-
-/* ***********************************************************************
- * Ford–Johnson sort for std::deque
+ * Ford–Johnson sort for std::deque (using std::pair as utility)
  * ***********************************************************************/
 void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
 {
@@ -416,14 +392,14 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
         arr.pop_back();
     }
 
-    // Create pairs
-    std::deque<SimplePairDeque> pairs;
+    // Create pairs using std::pair (utility, not container)
+    std::deque<std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
         if (arr[i] > arr[i + 1])
-            pairs.push_back(SimplePairDeque(arr[i], arr[i + 1]));
+            pairs.push_back(std::make_pair(arr[i], arr[i + 1]));
         else
-            pairs.push_back(SimplePairDeque(arr[i + 1], arr[i]));
+            pairs.push_back(std::make_pair(arr[i + 1], arr[i]));
     }
 
     // Extract larger elements
