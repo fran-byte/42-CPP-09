@@ -1,121 +1,137 @@
 # \_fordJohsonSortVector()
 
-arr = [6, 24, 999, 78, 5, 21, 3]
 
-hasodd = true
-
-oddElement = 3 POP -> arr = [6, 24, 999, 78, 5, 21]
-
-## PAIRS
-
-24 > 6 [24, 6]
-
-[999 , 78]
-
-21 > 5 [21, 5]
-
-pairs [(24, 6), (999, 78), (21, 5)]
-
-larger = [24, 999, 21]
-
-## RECURSIVIDAD - PRIMERA LLAMADA
-
-arr = [24, 999, 21]
-
-hasOdd = true
-
-oddElement = 21
-
-POP → arr = [24, 999]
-
-## PAIRS (recursivo)
-
-[24, 999] → 999 > 24 → (999, 24)
-
-pairs = [(999, 24)]
-
-## larger (recursivo)
-
-larger = [999]
-
-NO HAY MÁS RECURSIVIDAD! (larger.size() = 1)
-
-RECONSTRUIR smaller (recursivo)
-
-// i=0: larger[0] = 999
-
-// j=0: pairs[0].first = 999, pairs[0].second = 24
-
-larger = [999]
-
-pairs = [(999, 24)]
-
-smaller[0] = pairs[0].second; // smaller[0] = 24
-
-smaller = [24]
-
-## CONSTRUIR mainChain (recursivo)
-
-mainChain.push_back(smaller[0]); // mainChain = [24]
-
-## INSERTAR oddElement (recursivo)
-
-oddElement = 21
-
-binarySearch([24, 999], 21) → posición 0 (21 < 24)
-
-mainChain.insert(0, 21) → mainChain = [21, 24, 999]
-
-## FIN RECURSIVIDAD
-
-Retornamos: larger = [21, 24, 999]
-
-## VOLVEMOS A LLAMADA ORIGINAL
-
-pairs original = [(24,6), (999,78), (21,5)]
-
-larger (ordenado) = [21, 24, 999]
-
-## RECONSTRUIR smaller (original)
-
+[INPUT] e.g., [6, 24, 999, 78, 5, 21, 3]
+    │
+    ▽
+¿Tamaño > 1? → No → RETORNAR
+    │ Sí
+    ▽
+¿Hay impar? → Sí → Guardar oddElement = 3
+    │ No
+    ▽
+[FORMAR PARES] → (Mayor, Menor)
+    │
+    ▽
+[6,24]→(24,6), [999,78]→(999,78), [5,21]→(21,5)
+    │
+    ▽
+[EXTRAER LARGER] → [24, 999, 21]
+    │
+    ▽
+┌─────────────────────┐
+│  RECURSIÓN en       │ ←────────────────────────────┐
+│  LARGER = [24,999,21]│                             │
+└─────────────────────┘                              │
+    │                                                │
+    ▽ (Mismo proceso recursivo)                      │
+[24,999,21] → impar=21                               │
+    │                                                │
+    ▽                                                │
+[FORMAR PARES] → [24,999]→(999,24)                   │
+    │                                                │
+    ▽                                                │
+[EXTRAER LARGER] → [999]                             │
+    │                                                │
+    ▽ (Tamaño=1, fin recursión)                      │
+[RECONSTRUIR smaller] → smaller[0] = 24              │
+    │                                                │
+    ▽                                                │
+[CONSTRUIR mainChain] → [24] + [999] = [24, 999]     │
+    │                                                │
+    ▽                                                │
+[INSERTAR impar 21] → binarySearch → [21, 24, 999]   │
+    │                                                │
+    ▽ (Retorno recursión)                            │
+larger ORDENADO = [21, 24, 999]                      │
+    │                                                │
+    ▽                                                │
+┌────────────────────────────────────────────────────┘
+│
+▽
+[RECONSTRUIR CORRESPONDENCIA]
+Buscar para cada larger[i] su par original:
+larger[0]=21 → par(21,5) → smaller[0]=5
+larger[1]=24 → par(24,6) → smaller[1]=6  
+larger[2]=999 → par(999,78) → smaller[2]=78
+    │
+    ▽
 smaller = [5, 6, 78]
-
-## CONSTRUIR mainChain (original)
-
-mainChain = [5, 21, 24, 999]
-
-## INSERTAR remaining (Jacobsthal)
-
-/ smaller.size() > 1 → 3 > 1 → TRUE
-
-std::vector<int> remaining;
-
-for (size_t i = 1; i < smaller.size(); i++) // i=1,2
-
-    if (smaller[i] != -1)
-
-        remaining.push_back(smaller[i]);  // remaining = [6, 78]
-
-// getInsertionOrderVector(2)
-
-// insertionOrder = [0, 1]
-
-// Insertar remaining[0] = 6
-
-pos = binarySearch([5, 21, 24, 999], 6) → 1 (entre 5 y 21)
-
-mainChain.insert(1, 6) // [5, 6, 21, 24, 999]
-
-// Insertar remaining[1] = 78
-
-pos = binarySearch([5, 6, 21, 24, 999], 78) → 4 (antes de 999)
-
-mainChain.insert(4, 78) // [5, 6, 21, 24, 78, 999]
-
-## INSERTAR oddElement (original)
-
+    │
+    ▽
+[CONSTRUIR mainChain INICIAL]
+1. smaller[0] = 5 (directo, sin búsqueda)
+2. larger completo = [21, 24, 999]
+    │
+    ▽
+mainChain = [5, 21, 24, 999] ← "Esqueleto ordenado"
+    │
+    ▽
+┌─────────────────────────────────────────────────┐
+│  INSERCIÓN BINARIA de smaller[1..]              │
+│  (CORAZÓN DEL ALGORITMO)                        │
+└─────────────────────────────────────────────────┘
+    │
+    ▽
+[ORDEN JACOBSTHAL] para remaining = [6, 78]
+Secuencia: [0, 1] → insertar índice 0, luego 1
+    │
+    ▽
+┌─────────────────┐
+│ PASO 1: Insertar 6 │
+└─────────────────┘
+mainChain actual: [5, 21, 24, 999]
+    │
+    ▽ (¡BÚSQUEDA BINARIA!)
+Binary Search(6, [5, 21, 24, 999]):
+1. left=0, right=4, mid=2 → 24, 6 < 24 → right=2
+2. left=0, right=2, mid=1 → 21, 6 < 21 → right=1  
+3. left=0, right=1, mid=0 → 5, 6 > 5 → left=1
+4. left=1, right=1 → STOP → pos=1
+    │
+    ▽
+INSERTAR en posición 1: [5, 6, 21, 24, 999]
+    │
+    ▽
+┌──────────────────┐
+│ PASO 2: Insertar 78 │
+└──────────────────┘
+mainChain actual: [5, 6, 21, 24, 999]
+    │
+    ▽ (¡OTRA BÚSQUEDA BINARIA!)
+Binary Search(78, [5, 6, 21, 24, 999]):
+1. left=0, right=5, mid=2 → 21, 78 > 21 → left=3
+2. left=3, right=5, mid=4 → 999, 78 < 999 → right=4
+3. left=3, right=4, mid=3 → 24, 78 > 24 → left=4
+4. left=4, right=4 → STOP → pos=4
+    │
+    ▽
+INSERTAR en posición 4: [5, 6, 21, 24, 78, 999]
+    │
+    ▽
+[INSERTAR ELEMENTO IMPAR]
 oddElement = 3
-
-binarySearch([5, 6, 21, 24, 78, 999], 3) → posición 0 (3 < 5)
-
-mainChain.insert(0, 3) // [3, 5, 6, 21, 24, 78, 999]
+    │
+    ▽ (¡ÚLTIMA BÚSQUEDA BINARIA!)
+Binary Search(3, [5, 6, 21, 24, 78, 999]):
+1. left=0, right=6, mid=3 → 24, 3 < 24 → right=3
+2. left=0, right=3, mid=1 → 6, 3 < 6 → right=1
+3. left=0, right=1, mid=0 → 5, 3 < 5 → right=0
+4. left=0, right=0 → STOP → pos=0
+    │
+    ▽
+INSERTAR en posición 0: [3, 5, 6, 21, 24, 78, 999]
+    │
+    ▽
+[OUTPUT ORDENADO] ✓
+    │
+    └────────────────────────────────────────────┐
+                                                 │
+┌────────────────────────────────────────────────┘
+│
+▽
+RESUMEN DE INSERCIONES BINARIAS REALIZADAS:
+1. Inserción de smaller[1]=6 → pos=1
+2. Inserción de smaller[2]=78 → pos=4  
+3. Inserción de oddElement=3 → pos=0
+   TOTAL: 3 búsquedas binarias O(log n)
