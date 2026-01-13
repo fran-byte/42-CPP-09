@@ -66,25 +66,25 @@ binarySearch([24, 999], 21) → posición 0 (21 < 24)
 
 mainChain.insert(0, 21) → mainChain = [21, 24, 999]
 
-# FIN RECURSIVIDAD
+## FIN RECURSIVIDAD
 
 Retornamos: larger = [21, 24, 999]
 
-# VOLVEMOS A LLAMADA ORIGINAL
+## VOLVEMOS A LLAMADA ORIGINAL
 
 pairs original = [(24,6), (999,78), (21,5)]
 
 larger (ordenado) = [21, 24, 999]
 
-# RECONSTRUIR smaller (original)
+## RECONSTRUIR smaller (original)
 
 smaller = [5, 6, 78]
 
-# CONSTRUIR mainChain (original)
+## CONSTRUIR mainChain (original)
 
 mainChain = [5, 21, 24, 999]
 
-# INSERTAR remaining (Jacobsthal)
+## INSERTAR remaining (Jacobsthal)
 
 / smaller.size() > 1 → 3 > 1 → TRUE
 
@@ -112,7 +112,7 @@ pos = binarySearch([5, 6, 21, 24, 999], 78) → 4 (antes de 999)
 
 mainChain.insert(4, 78) // [5, 6, 21, 24, 78, 999]
 
-# INSERTAR oddElement (original)
+## INSERTAR oddElement (original)
 
 oddElement = 3
 
