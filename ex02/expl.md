@@ -1,13 +1,12 @@
 # \_fordJohsonSortVector()
 
-
 ```
 
 [INPUT] e.g., [6, 24, 999, 78, 5, 21, 3]  -->  ¿Tamaño > 1? → No → RETURN
                                                         │
                                                     Sí  ▽
     ┌───────────────────────────────────────────────────┘
-    │ 
+    │
     ▽
 ¿Hay impar? → Sí → Guardar oddElement = 3
     │ No
@@ -54,7 +53,7 @@ larger ORDENADO = [21, 24, 999]                      │
 [RECONSTRUIR larger ordenado con su smaller correspondiente]
 Buscar para cada larger[i] su par original:
 larger[0]=21 → par(21,5) → smaller[0]=5
-larger[1]=24 → par(24,6) → smaller[1]=6  
+larger[1]=24 → par(24,6) → smaller[1]=6
 larger[2]=999 → par(999,78) → smaller[2]=78
     │
     ▽
@@ -87,7 +86,7 @@ mainChain actual: [5, 21, 24, 999]
     ▽ (¡BÚSQUEDA BINARIA!)
 Binary Search(6, [5, 21, 24, 999]):
 1. left=0, right=4, mid=2 → 24, 6 < 24 → right=2
-2. left=0, right=2, mid=1 → 21, 6 < 21 → right=1  
+2. left=0, right=2, mid=1 → 21, 6 < 21 → right=1
 3. left=0, right=1, mid=0 → 5, 6 > 5 → left=1
 4. left=1, right=1 → STOP → pos=1
     │
@@ -134,8 +133,40 @@ INSERTAR en posición 0: [3, 5, 6, 21, 24, 78, 999]
 ▽
 RESUMEN DE INSERCIONES BINARIAS REALIZADAS:
 1. Inserción de smaller[1]=6 → pos=1
-2. Inserción de smaller[2]=78 → pos=4  
+2. Inserción de smaller[2]=78 → pos=4
 3. Inserción de oddElement=3 → pos=0
    TOTAL: 3 búsquedas binarias O(log n)
 
+```
+
+---
+
+```
+DATOS ORIGINALES → [6,24,999,78,5,21,3]
+        │
+        ▽ (FASE 1-2)
+PARES: (24,6) (999,78) (21,5)  + odd=3
+        │
+        ▽ (RECURSIÓN)
+LARGER: [24,999,21] → ordenado → [21,24,999]
+        │
+        ▽ (FASE 3)
+SMALLER reconstruido: [6,78,5]
+        │
+        ▽ (FASE 4)
+MAINCHAIN inicial: [5] + [21,24,999] = [5,21,24,999]
+        │
+        ▽ (FASE 5)
+REMAINING: [6,78]
+ORDEN Jacobsthal: [0,1] → primero 6, luego 78
+        │
+        ▽ (Búsquedas binarias)
+Insertar 6 → pos=1 → [5,6,21,24,999]
+Insertar 78 → pos=4 → [5,6,21,24,78,999]
+        │
+        ▽ (FASE 6)
+Insertar odd=3 → pos=0 → [3,5,6,21,24,78,999]
+        │
+        ▽
+RESULTADO: [3,5,6,21,24,78,999]
 ```
