@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 21:27:56 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/14 18:08:44 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/14 18:09:35 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ private:
     static bool _isValidDate(const std::string &date);
     static bool _isValidHeader(const std::string &line);
 
-    /* this is not a container */
+    /* this is not a container pair< >*/
     static std::pair<std::string, float> _parseInputLine(const std::string &line);
     /* https://en.cppreference.com/w/cpp/container.html */
 
