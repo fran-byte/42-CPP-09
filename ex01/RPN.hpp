@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:05:42 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/03 21:27:39 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/14 18:08:29 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 class RPN
 {
 private:
+    /*  Exercise 00: Using std::map as container
+        Exercise 01: Using std::stack as container */
     std::stack<float> _rpnStack;
 
 public:

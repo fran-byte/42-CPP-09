@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:35 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/11 19:12:15 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/14 18:07:55 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 class PmergeMe
 {
 private:
+    /*  Exercise 00: Using std::map as container
+        Exercise 01: Using std::stack as container
+        Exercise 02: Using std::vector and std::deque as containers */
     std::vector<int> _vec;
     std::deque<int> _deq;
     bool _isValidInt(const std::vector<std::string> &argvString);
