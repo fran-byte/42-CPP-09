@@ -178,7 +178,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     }
 
     /*Create pairs using std::pair (utility, not container)*/
-    std::vector<std::pair<int, int>> pairs;
+    std::vector<std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
         if (arr[i] > arr[i + 1])
@@ -376,7 +376,7 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
     }
 
     // Create pairs using std::pair (utility, not container)
-    std::deque<std::pair<int, int>> pairs;
+    std::deque<std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
         if (arr[i] > arr[i + 1])
