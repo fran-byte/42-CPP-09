@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/13 00:59:55 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/14 19:29:37 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     if (arr.size() <= 1)
         return;
 
-    // Handle odd element
+    // Handle odd element */
     bool hasOdd = (arr.size() % 2 == 1);
     int oddElement = -1;
 
@@ -176,8 +176,8 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         arr.pop_back();
     }
 
-    // Create pairs using std::pair (utility, not container)
-    std::vector<std::pair<int, int> > pairs;
+    /*Create pairs using std::pair (utility, not container)*/
+    std::vector<std::pair<int, int>> pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
         if (arr[i] > arr[i + 1])
@@ -186,23 +186,23 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
             pairs.push_back(std::make_pair(arr[i + 1], arr[i]));
     }
 
-    // Extract larger elements
+    /*Extract larger elements */
     std::vector<int> larger;
     for (size_t i = 0; i < pairs.size(); i++)
         larger.push_back(pairs[i].first);
 
-    // Recursively sort larger elements
+    /* Recursively sort larger elements */
     if (larger.size() > 1)
         _fordJohnsonSortVector(larger);
 
-    // Reconstruct smaller elements
+    /* Reconstruct smaller elements */
     std::vector<int> smaller(pairs.size(), -1);
     std::vector<bool> used(pairs.size(), false);
 
     for (size_t i = 0; i < larger.size(); i++)
     {
         for (size_t j = 0; j < pairs.size(); j++)
-        {
+        { /*if pair hasn't been used AND its 1st element matches larger[i]*/
             if (!used[j] && pairs[j].first == larger[i])
             {
                 smaller[i] = pairs[j].second;
@@ -212,7 +212,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         }
     }
 
-    // Build main chain
+    /* Build main chain */
     std::vector<int> mainChain;
     if (!smaller.empty() && smaller[0] != -1)
         mainChain.push_back(smaller[0]);
@@ -220,8 +220,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     for (size_t i = 0; i < larger.size(); i++)
         mainChain.push_back(larger[i]);
 
-    // Insert remaining smaller elements using Jacobsthal order
-    if (smaller.size() > 1)
+    /* Insert remaining smaller elements using Jacobsthal order */
     {
         std::vector<int> remaining;
         for (size_t i = 1; i < smaller.size(); i++)
@@ -376,7 +375,7 @@ void PmergeMe::_fordJohnsonSortDeque(std::deque<int> &arr)
     }
 
     // Create pairs using std::pair (utility, not container)
-    std::deque<std::pair<int, int> > pairs;
+    std::deque<std::pair<int, int>> pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
         if (arr[i] > arr[i + 1])
