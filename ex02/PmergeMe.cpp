@@ -6,7 +6,7 @@
 /*   By: frromero <frromero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:57 by frromero          #+#    #+#             */
-/*   Updated: 2026/01/14 19:29:37 by frromero         ###   ########.fr       */
+/*   Updated: 2026/01/14 20:34:24 by frromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ bool PmergeMe::_isValidInt(const std::vector<std::string> &argvString)
  *                        code  for VECTOR
  * ***********************************************************************
  ***********************************************************************
- * Binary search helper for vector
+ * BinarySearch determines THE POSITION for vector
  * ***********************************************************************/
 size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 {
@@ -104,6 +104,7 @@ size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 
 /* ***********************************************************************
  * Compute insertion order using Jacobsthal sequence for Vector
+ * Jacobsthal determines THE INSERTION ORDER
  * ***********************************************************************/
 static std::vector<size_t> getInsertionOrderVector(size_t pendSize)
 {
@@ -283,7 +284,7 @@ void PmergeMe::fJVector(void)
 /* ***********************************************************************
  *                    Same code but all with DEQUE
  * ***********************************************************************
-Binary search helper for deque
+ * BinarySearch determines THE POSITION for deque
  * ***********************************************************************/
 size_t PmergeMe::_binarySearchDeque(const std::deque<int> &arr, int value)
 {
