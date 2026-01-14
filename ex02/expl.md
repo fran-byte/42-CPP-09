@@ -3,11 +3,11 @@
 
 ```
 
-[INPUT] e.g., [6, 24, 999, 78, 5, 21, 3]
-    │
-    ▽
-¿Tamaño > 1? → No → RETORNAR
-    │ Sí
+[INPUT] e.g., [6, 24, 999, 78, 5, 21, 3]  -->  ¿Tamaño > 1? → No → RETORNAR
+                                                        │
+                                                    Sí  ▽
+    ┌───────────────────────────────────────────────────┘
+    │ 
     ▽
 ¿Hay impar? → Sí → Guardar oddElement = 3
     │ No
