@@ -5,6 +5,8 @@
 #include <ctime>
 #include <algorithm>
 
+/* THIS IS THE FUCKING CRAZY FORD-JOHNSON ALGORITHM for Deque Container */
+
 /* ***********************************************************************
  * BinarySearch determines THE POSITION for deque
  * ***********************************************************************/
