@@ -137,7 +137,6 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 
     for (size_t i = 0; i < larger.size(); i++)
         mainChain.push_back(larger[i]);
-
     /* AFTER RECURSION insert remaining smaller elements using Jacobsthal order */
     {
         std::vector<int> remaining;
