@@ -95,7 +95,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
     }
 
     /*Create pairs using std::pair (utility, not container)*/
-    std::vector<std::pair<int, int>> pairs;
+    std::vector<std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2)
     {
         if (arr[i] > arr[i + 1])
@@ -132,7 +132,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 
     /* Build main chain */
     std::vector<int> mainChain;
-    if (!smaller.empty() && smaller[0] != -1)
+    if (!smaller.empty() && smaller[0] != -1) // init void
         mainChain.push_back(smaller[0]);
 
     for (size_t i = 0; i < larger.size(); i++)
