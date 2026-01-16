@@ -12,18 +12,7 @@
  * ***********************************************************************/
 size_t PmergeMe::_binarySearchDeque(const std::deque<int> &arr, int value)
 {
-    size_t left = 0;
-    size_t right = arr.size();
-
-    while (left < right)
-    {
-        size_t mid = left + (right - left) / 2;
-        if (arr[mid] < value)
-            left = mid + 1;
-        else
-            right = mid;
-    }
-    return left;
+    return std::lower_bound(arr.begin(), arr.end(), value) - arr.begin();
 }
 
 /* ***********************************************************************

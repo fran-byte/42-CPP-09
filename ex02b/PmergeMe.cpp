@@ -41,6 +41,11 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
  * ***********************************************************************/
 bool PmergeMe::_isValidInt(const std::vector<std::string> &argvString)
 {
+    if (argvString.size() > 5000)
+    { /*SUBJECT: Your program must be able to handle at least 3000 different integers*/
+        std::cerr << "Error: Too many numbers (maximum 5000 allowed)" << std::endl;
+        return false;
+    }
     for (size_t i = 0; i < argvString.size(); i++)
     {
         const std::string &str = argvString[i];

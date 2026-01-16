@@ -8,28 +8,18 @@
 /* THIS IS THE FUCKING CRAZY FORD-JOHNSON ALGORITHM for Vector Container  :-) */
 
 /* ***********************************************************************
- * BinarySearch determines THE POSITION for vector 
+ * BinarySearch determines THE POSITION for vector
  * Finds the insertion index for `value` inside a sorted vector
  * returns the first position where value fits
  * ***********************************************************************/
+
 size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 {
-    size_t left = 0;
-    size_t right = arr.size();
-
-    while (left < right)
-    {
-        size_t mid = left + (right - left) / 2;
-        if (arr[mid] < value)
-            left = mid + 1;
-        else
-            right = mid;
-    }
-    return left;
+    return std::lower_bound(arr.begin(), arr.end(), value) - arr.begin();
 }
 
 /* ***********************************************************************
- * Insertion order (Jacobsthal sequence )for Vector 
+ * Insertion order (Jacobsthal sequence )for Vector
  * Generates the insertion order using the Jacobsthal sequence
  * This order minimizes the number of comparisons when inserting
  * pending elements during the Ford–Johnson algorithm
@@ -84,18 +74,17 @@ static std::vector<size_t> getInsertionOrderVector(size_t pendSize)
 }
 
 /* ***********************************************************************
- * Ford–Johnson sort for std::vector 
- *  1) Form disjoint pairs and sort each pair internally
+ * Ford–Johnson sort for std::vector
+ *  1) Form pairs and sort each pair internally
  *  2) Extract larger elements and sort them recursively
- *  3) Insert the smaller elements back into the main chain in Jacobsthal
-     determined order to reduce comparisons
+ *  3) Insert the smaller elements back into the main using Jacobsthal order
  * ***********************************************************************/
 void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 {
     if (arr.size() <= 1)
         return;
 
-    // Handle odd element */
+    /*Handle odd element */
     bool hasOdd = (arr.size() % 2 == 1);
     int oddElement = -1;
 
@@ -173,7 +162,7 @@ void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
         }
     }
 
-    // Insert odd element if present
+    /* Insert odd element if present */
     if (hasOdd)
     {
         size_t pos = _binarySearchVector(mainChain, oddElement);

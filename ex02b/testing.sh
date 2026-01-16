@@ -8,7 +8,7 @@ echo "========================================"
 
 # Paso 1: Generar 3000 números aleatorios
 echo "1. Generando 3000 números aleatorios (1-100000)..."
-RANDOM_NUMS=$(shuf -i 1-100000 -n 3000 | tr "\n" " ")
+RANDOM_NUMS=$(shuf -i 2000000000-2147483647 -n 5000 | tr "\n" " ")
 echo "   ✓ Generados"
 
 # Paso 2: Ejecutar PmergeMe
