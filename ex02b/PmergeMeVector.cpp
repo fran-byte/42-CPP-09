@@ -8,7 +8,9 @@
 /* THIS IS THE FUCKING CRAZY FORD-JOHNSON ALGORITHM for Vector Container  :-) */
 
 /* ***********************************************************************
- * BinarySearch determines THE POSITION for vector
+ * BinarySearch determines THE POSITION for vector 
+ * Finds the insertion index for `value` inside a sorted vector
+ * returns the first position where value fits
  * ***********************************************************************/
 size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 {
@@ -27,7 +29,10 @@ size_t PmergeMe::_binarySearchVector(const std::vector<int> &arr, int value)
 }
 
 /* ***********************************************************************
- * Insertion order (Jacobsthal sequence )for Vector
+ * Insertion order (Jacobsthal sequence )for Vector 
+ * Generates the insertion order using the Jacobsthal sequence
+ * This order minimizes the number of comparisons when inserting
+ * pending elements during the Ford–Johnson algorithm
  * ***********************************************************************/
 static std::vector<size_t> getInsertionOrderVector(size_t pendSize)
 {
@@ -79,7 +84,11 @@ static std::vector<size_t> getInsertionOrderVector(size_t pendSize)
 }
 
 /* ***********************************************************************
- * Ford–Johnson sort for std::vector
+ * Ford–Johnson sort for std::vector 
+ *  1) Form disjoint pairs and sort each pair internally
+ *  2) Extract larger elements and sort them recursively
+ *  3) Insert the smaller elements back into the main chain in Jacobsthal
+     determined order to reduce comparisons
  * ***********************************************************************/
 void PmergeMe::_fordJohnsonSortVector(std::vector<int> &arr)
 {
